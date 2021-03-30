@@ -1,0 +1,38 @@
+//
+//  BatalhaJogVsCompModel.h
+//  Batalha Naval
+//
+//  Created by Gabriel A. Dragoni on 3/4/16.
+//  Copyright © 2016 Gabriel A. Dragoni. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface BatalhaJogVsComp : NSObject
+
+@property (nonatomic) NSInteger ultimoTiroDado, ultimoTiroAdv;
+@property (nonatomic) BOOL advInteligenteBatalhaVsComp;
+
+-(instancetype)initBatalhaVsComp;
+-(BOOL)testeDeCamposNaMesmaLinha: (NSInteger)campo1 eCampo2: (NSInteger)campo2;
+-(BOOL)testeJogada:(NSInteger)jogada comVezDeJogar:(char)vezDeJogar;
+-(BOOL)testeDeVitoria:(char)vezDeJogar eArrayDeNavios:(NSArray*)arrayDeNavios;
+-(BOOL)navioDescobertoNaGrid:(NSArray*)arrayNaviosJogador;
+-(NSInteger)campoEncontradoDeNavioNaoDestruidoTotalmente:(NSArray*)arrayDeNavios;
+-(NSInteger)porcentagemDeFrotaAfundada:(NSInteger)campoComNavioAfundado;
+-(NSInteger)campoParaJogarComNavioNoCampo:(NSInteger)campoDonavio eArrayDenaviosJogador:(NSArray*)arrayDeNavios;
+-(NSInteger)totalDeCasasComNavios;
+-(NSInteger)tentativasPorTurno;
+-(NSInteger)tentativasPorAcerto;
+-(NSInteger)tamanhoGrid;
+-(NSArray*)gerarArrayNaviosAdv;
+-(NSArray*)tirosAdv;
+-(NSArray*)tirosJog;
+-(void)encerrarJogoComVencedor:(char)vencedor;
+-(void)tocarSplash;
+-(void)tocarBomba;
+-(void)tocarWinSound;
+-(void)tocarSadTrambone;
+-(void)tocarShipBell;
+
+@end

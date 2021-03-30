@@ -1,0 +1,35 @@
+//
+//  Game.m
+//  Batalha Naval
+//
+//  Created by Gabriel A. Dragoni on 2/11/16.
+//  Copyright (c) 2016 Gabriel A. Dragoni. All rights reserved.
+//
+
+#import "Game.h"
+#import "DateUtil.h"
+
+@implementation Game
+
+-(Game *)gameWithDict:(NSDictionary *)data{
+    self.gameId = [data[KEY_ID] integerValue];
+    if (data[KEY_STARTDATE] != (id)[NSNull null]) self.gameStartDate = [DateUtil transformDateWithString:data[KEY_STARTDATE]];
+    if (data[KEY_ENDDATE] != (id)[NSNull null]) self.gameEndDate = [DateUtil transformDateWithString:data[KEY_ENDDATE]];
+    if (data[KEY_WINNER] != (id)[NSNull null]) self.gameWinner = [data[KEY_WINNER] integerValue];
+    if (data[KEY_TURNPLAYERID] != (id)[NSNull null]) self.gameTurnPlayerId = [data[KEY_TURNPLAYERID]integerValue];
+    if (data[KEY_PLAYERONE] != (id)[NSNull null]) {
+        Player *player1 = [Player new];
+        self.gamePlayerOne = [player1 playerWithDict:data[KEY_PLAYERONE]];
+    }
+    if (data[KEY_PLAYERTWO] != (id)[NSNull null]) {
+        Player *player2 = [Player new];
+        self.gamePlayerTwo = [player2 playerWithDict:data[KEY_PLAYERTWO]];
+    }
+    return self;
+}
+
+-(BOOL)isPlayerOneTurn{
+    return self.gameTurnPlayerId == self.gamePlayerOne.playerID;
+}
+
+@end

@@ -1,0 +1,334 @@
+//
+//  BatalhaJogVsCompModel.m
+//  Batalha Naval
+//
+//  Created by Gabriel A. Dragoni on 3/4/16.
+//  Copyright © 2016 Gabriel A. Dragoni. All rights reserved.
+//
+
+#import "BatalhaJogVsComp.h"
+#import "GeradorDeNavios.h"
+#import "JogadorDAO.h"
+#import "UserDefault.h"
+#import "Soms.h"
+#import "TestesDeCampos.h"
+#import "Jogo.h"
+
+@implementation BatalhaJogVsComp{
+    
+    Jogador *jogador;
+    Configuracoes *config;
+    Soms            *som;
+    NSMutableArray  *tirosJogador, *tirosAdversario;
+}
+
+-(instancetype)initBatalhaVsComp{
+    
+    if (self = [super init]) {
+        
+        config                              = [UserDefault getConfiguracoes];
+        jogador                             = [UserDefault getJogadorAtivo];
+        som                                 = [Soms new];
+        tirosAdversario                     = [NSMutableArray new];
+        tirosJogador                        = [NSMutableArray new];
+        self.ultimoTiroDado                 = 0;
+        self.ultimoTiroAdv                  = 0;
+        self.advInteligenteBatalhaVsComp    = config.configAdvInteligente;
+    }
+        
+    return self;
+}
+
+#pragma mark - Configuracoes
+
+-(NSInteger)tentativasPorTurno{
+    
+    return config.configTentTurno;
+}
+
+-(NSInteger)tentativasPorAcerto{
+    
+    return config.configTentAcerto;
+}
+
+-(NSInteger)tamanhoGrid{
+    
+    return config.configTamanhoGrid;
+}
+
+-(NSArray*)tirosJog{
+    
+    return tirosJogador;
+}
+
+-(NSArray*)tirosAdv{
+    
+    return tirosAdversario;
+}
+
+-(NSInteger)totalDeCasasComNavios{
+    
+    return config.configTotalCasasComNavios;
+}
+
+#pragma mark - Soms
+
+-(void)tocarBomba{
+    
+    [som tocarBomba];
+}
+
+-(void)tocarSadTrambone{
+    
+    [som tocarSadTrambone];
+}
+
+-(void)tocarShipBell{
+    
+    [som tocarShipBell];
+}
+
+-(void)tocarSplash{
+    
+    [som tocarSplash];
+}
+
+-(void)tocarWinSound{
+    
+    [som tocarWinSound];
+}
+
+#pragma mark - Metodos
+
+-(void)encerrarJogoComVencedor:(char)vencedor{
+    
+    JogadorDAO *jogador_ = [JogadorDAO new];
+    BOOL vitoria = vencedor == 'J';
+    
+    [jogador_ adicionarJogoJogadoParaJogador:jogador.nome  eVitoria:vitoria];
+}
+
+-(NSArray*)gerarArrayNaviosAdv{
+    
+    GeradorDeNavios *objnavios = [GeradorDeNavios new];
+    NSArray *array = [[NSArray alloc]initWithArray:[objnavios arrayComPortaAvioes:config.configQtdPortaAvoes qtdEncouracado:config.configQtdEncouracado qtdCruiser:config.configQtdCruiser qtdDestroyer:config.configQtdDestroyer qtdSubmarino:config.configQtdSubmarino tamDaGrid:config.configTamanhoGrid comConfigPadra:NO]];
+    
+    return array;
+}
+
+
+-(NSInteger)campoEncontradoDeNavioNaoDestruidoTotalmente:(NSArray*)arrayDeNavios{
+    
+    for (NSNumber *pos in [[self navioNaoDestruidoTotalmente:arrayDeNavios]posicoes]) {
+        
+        for (NSNumber *tiros in self.tirosAdv) {
+            
+            if ([pos integerValue] == [tiros integerValue]) {
+                
+                return [pos integerValue];
+            }
+        }
+    }
+    
+    return 0;
+}
+
+-(Navio*)navioNaoDestruidoTotalmente:(NSArray*)arrayDeNavios{
+    
+    for (Navio *nav in arrayDeNavios) {
+        NSInteger count = 0;
+        for (NSNumber *pos in nav.posicoes) {
+            
+            for (NSNumber *tirosAdv in self.tirosAdv) {
+                
+                if ([pos integerValue] == [tirosAdv integerValue]) {
+                    
+                    count++;
+                    break;
+                }
+            }
+        }
+        if (count<nav.posicoes.count && count != 0) {
+            
+            return nav;
+        }
+    }
+    
+    return nil;
+}
+
+-(NSInteger)campoParaJogarComNavioNoCampo:(NSInteger)campoDonavio eArrayDenaviosJogador:(NSArray*)arrayDeNavios{
+    
+    for (Navio *nav in arrayDeNavios) {
+        
+        for (NSNumber *pos in nav.posicoes) {
+            
+            if ([pos integerValue] == campoDonavio) {
+                
+                for (NSNumber *pos2 in nav.posicoes) {
+                    BOOL teste = NO;
+                    for (NSNumber *tiros in self.tirosAdv) {
+                        
+                        if ([pos2 integerValue] == [tiros integerValue]) {
+                            
+                            teste = YES;
+                        }
+                    }
+                    if (!teste) {
+                        
+                        return [pos2 integerValue];
+                    }
+                }
+            }
+        }
+    }
+    
+    return 0;
+}
+
+-(BOOL)navioDescobertoNaGrid:(NSArray*)arrayNaviosJogador{
+    
+    NSInteger ultimaPosPresente = 0;
+    for (NSNumber* tirosAdv in tirosAdversario) {
+        
+        for (Navio* navJog in arrayNaviosJogador) {
+            
+            for (NSNumber* posNav in navJog.posicoes) {
+                
+                if ([tirosAdv integerValue] == [posNav integerValue]) {
+                    
+                    NSInteger contador = 0;
+                    for (NSNumber* posNav2 in navJog.posicoes) {
+                        
+                        for (NSNumber* tirosAdv2 in tirosAdversario) {
+                            
+                            if ([posNav2 integerValue] == [tirosAdv2 integerValue]) {
+                                
+                                contador++;
+                                
+                                ultimaPosPresente = [posNav2 integerValue];
+                                break;
+                            }
+                        }
+                    }
+                    if (contador < navJog.posicoes.count) {
+                        
+                        self.ultimoTiroAdv = ultimaPosPresente;
+                        return YES;
+                    }
+                }
+            }
+        }
+    }
+    
+    return NO;
+}
+
+-(NSInteger)porcentagemDeFrotaAfundada:(NSInteger)campoComNavioAfundado{
+    NSInteger porcentagem = 0;
+    
+    porcentagem = campoComNavioAfundado * 100 / config.configTotalCasasComNavios;
+    
+    return porcentagem;
+}
+
+#pragma mark - Testes
+
+-(BOOL)testeDeCamposNaMesmaLinha: (NSInteger)campo1 eCampo2: (NSInteger)campo2{
+    
+    if (campo1 == 0 || campo2 == 0) {
+        
+        return NO;
+    }
+    
+    NSInteger primeiroItemDaLinha;
+    NSInteger ultimoItemDaLinha;
+    NSInteger tamanhoGrid = config.configTamanhoGrid;
+    
+    primeiroItemDaLinha = (campo1 - 1)/tamanhoGrid;
+    primeiroItemDaLinha = primeiroItemDaLinha*tamanhoGrid + 1;
+    ultimoItemDaLinha = primeiroItemDaLinha + tamanhoGrid - 1;
+    
+    if (campo2 >= primeiroItemDaLinha && campo2 <= ultimoItemDaLinha&& campo2 > 0 && campo2 <= tamanhoGrid*tamanhoGrid) {
+        
+        return YES;
+    }
+    
+    return NO;
+}
+
+-(BOOL)testeJogada:(NSInteger)jogada comVezDeJogar:(char)vezDeJogar{
+    
+    if (vezDeJogar == 'A') {
+        
+        for (int i = 0; i < tirosAdversario.count; i++) {
+            
+            if ([tirosAdversario[i] integerValue] == jogada) {
+                
+                return NO;
+            }
+        }
+        self.ultimoTiroDado = jogada;
+        [tirosAdversario addObject:@(jogada)];
+    }
+    else{
+        
+        for (int i = 0; i < tirosJogador.count; i++) {
+            
+            if ([tirosJogador[i] integerValue] == jogada) {
+                
+                return NO;
+            }
+        }
+        self.ultimoTiroDado = jogada;
+        [tirosJogador addObject:@(jogada)];
+    }
+    
+    return YES;
+}
+
+-(BOOL)testeDeVitoria:(char)vezDeJogar eArrayDeNavios:(NSArray*)arrayDeNavios{
+    
+    NSMutableArray *TiroCerteiro = [[NSMutableArray alloc]init];
+    
+    if (vezDeJogar == 'J') {
+        
+        for (NSNumber* tiro in tirosJogador) {
+            
+            for (Navio* nav in arrayDeNavios) {
+                
+                for (NSNumber* pos in nav.posicoes) {
+                    
+                    if ([pos integerValue] == [tiro integerValue]) {
+                        
+                        [TiroCerteiro addObject:tiro];
+                    }
+                }
+            }
+        }
+    }else{
+        
+        for (NSNumber* tiro in tirosAdversario) {
+            
+            for (Navio* nav in arrayDeNavios) {
+                
+                for (NSNumber* pos in nav.posicoes) {
+                    
+                    if ([pos integerValue] == [tiro integerValue]) {
+                        
+                        [TiroCerteiro addObject:tiro];
+                    }
+                }
+            }
+        }
+    }
+    
+    if (TiroCerteiro.count == config.configTotalCasasComNavios) {
+        
+        return YES;
+    }
+    
+    return NO;
+}
+
+@end

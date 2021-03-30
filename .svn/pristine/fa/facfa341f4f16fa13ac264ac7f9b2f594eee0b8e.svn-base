@@ -1,0 +1,172 @@
+//
+//  Temporizador.m
+//  Batalha Naval
+//
+//  Created by Gabriel A. Dragoni on 12/30/15.
+//  Copyright (c) 2015 Gabriel A. Dragoni. All rights reserved.
+//
+
+#import "AfundarNaviosController.h"
+#import "GridController.h"
+#import "AppDelegate.h"
+#import "PlayerCompDAO.h"
+#import "Sound.h"
+#import "UserDefault.h"
+
+@implementation AfundarNaviosController{
+    
+    PlayerComp *jogador;
+    ConfigurationComp *config;
+    Soms            *som;
+    UIBarButtonItem *pausarAfundarButton, *iniciarAfundarButton, *sairAfundarButton;
+}
+
+@synthesize seconds;
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    som = [Soms new];
+   
+    pausarAfundarButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemPause target:self action:@selector(pausarButton)];
+    self.navigationItem.rightBarButtonItem = pausarAfundarButton;
+    
+    sairAfundarButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(sairButton)];
+    self.navigationItem.leftBarButtonItem = sairAfundarButton;
+    
+    UIAlertView *alerta = [[UIAlertView alloc]initWithTitle:@"Afundar navios!" message:@"PREPARAR! APONTAR! FOGOOO!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Começar", nil];
+    alerta.tag = 100;
+    
+    config = [UserDefault getConfiguracoes];
+    jogador = [UserDefault getJogadorAtivo];
+    
+    NSInteger recordeJogador = [self melhorTempoJogAtivo];
+    NSString *nomeJogador = jogador.nome;
+    if (recordeJogador > 8000) {
+        
+        if ([self recordMelhorTempo] == 0) {
+            
+            self.infoAfundarNaviosLabel.text = [NSString stringWithFormat:@"Jogador: %@ \nMelhor tempo: N/A Recorde: N/A", nomeJogador];
+        }else{
+            
+            self.infoAfundarNaviosLabel.text = [NSString stringWithFormat:@"Jogador: %@ \nMelhor tempo: N/A Recorde: %02li:%02li", nomeJogador, [self recordMelhorTempo]/60, [self recordMelhorTempo]%60];
+        }
+    }
+    else{
+        
+        self.infoAfundarNaviosLabel.text = [NSString stringWithFormat:@"Jogador: %@  \nMelhor tempo: %02li:%02li Recorde: %02li:%02li", nomeJogador, recordeJogador/60, recordeJogador%60, [self recordMelhorTempo]/60, [self recordMelhorTempo]%60];
+    }
+    
+    [alerta show];
+    [som tocarSonar];
+    seconds = 0;
+}
+
+#pragma mark - Buttons
+
+-(void)pausarButton{
+    
+        iniciarAfundarButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(inciarButton)];
+        self.navigationItem.rightBarButtonItem = iniciarAfundarButton;
+        
+        self.view.userInteractionEnabled = NO;
+        [self pausaTimer];
+}
+
+-(void)inciarButton{
+    
+    pausarAfundarButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemPause target:self action:@selector(pausarButton)];
+    self.navigationItem.rightBarButtonItem = pausarAfundarButton;
+    
+    self.view.userInteractionEnabled = YES;
+    [self timer];
+}
+
+-(void)sairButton{
+    
+    if (self.navigationItem.rightBarButtonItem == pausarAfundarButton) {
+        
+        [self pausaTimer];
+    }
+    
+    UIAlertView *alertaParaVoltar = [[UIAlertView alloc]initWithTitle:@"Encerrar jogo" message:@"Tem certeza que deseja abandonar o jogo?" delegate:self cancelButtonTitle:@"Sim" otherButtonTitles:@"Não", nil];
+    alertaParaVoltar.tag = 11;
+    [alertaParaVoltar show];
+}
+
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    if (alertView.tag == 100) {
+        
+        [self timer];
+    }
+    else if (alertView.tag == 11){
+        
+        if (buttonIndex == 0) {
+            
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }else{
+            
+            if (self.navigationItem.rightBarButtonItem == pausarAfundarButton) {
+                
+            [self timer];
+            }
+        }
+    }
+}
+
+#pragma mark - Temporizador
+
+-(void)timer{
+    
+    timerLabel.text = [NSString stringWithFormat:@"Time %02li:%02li", seconds/60, seconds%60];
+    
+    self.temporizador = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(subractTime) userInfo:nil repeats:YES];
+}
+
+-(void)pausaTimer {
+    
+    [_temporizador invalidate];
+    _temporizador = nil;
+}
+
+-(void)subractTime{
+    
+    seconds++;
+    timerLabel.text = [NSString stringWithFormat:@"Time %02li:%02li",seconds/60, seconds%60];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
+    if ([segue.identifier isEqualToString:@"tabuleiro"]) {
+        
+        GridController *grid = [segue destinationViewController];
+        self.container = grid;
+        self.container.controllerPai = self;
+    }
+    else if ([segue.identifier isEqualToString:@"segueViewParaAdicionar"]){
+        
+    }
+}
+
+#pragma mark - Metodos
+
+-(NSInteger)recordMelhorTempo{
+    
+    JogadorDAO *jogDAO = [JogadorDAO new];
+    
+    return [jogDAO recordMelhorTempo] != 9999 ? [jogDAO recordMelhorTempo] : 0;
+}
+
+-(NSInteger)melhorTempoJogAtivo{
+    
+    JogadorDAO *jogDAO = [JogadorDAO new];
+    return [jogDAO melhorTempoJogador: jogador.nome] != 9999 ? [jogDAO melhorTempoJogador:jogador.nome] : 0;
+}
+
+-(void)frotaAfundada:(NSInteger)porcentagem{
+    
+    self.frotaAfundadaLabel.text = [NSString stringWithFormat:@"Frota afundada: %li%%", porcentagem];
+}
+
+@end

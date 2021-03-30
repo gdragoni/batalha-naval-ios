@@ -1,0 +1,1152 @@
+//
+//  BatalhaGridController.m
+//  Batalha Naval
+//
+//  Created by Gabriel A. Dragoni on 1/14/16.
+//  Copyright (c) 2016 Gabriel A. Dragoni. All rights reserved.
+//
+
+#import "BatalhaGridController.h"
+#import "BatalhaVsComputadorController.h"
+#import "GeradorDeNavios.h"
+#import "BatalhaJogVsComp.h"
+#import "ImageUtil.h"
+#import "Jogo.h"
+
+@interface BatalhaGridController ()
+
+@end
+
+BatalhaJogVsComp *batalhaModel;
+char            vezDejogar;
+NSInteger       tentativasRestantes, tentativaPorTurno, tentativaPorAcerto, secondsToPlay, tiroNaRodada, tempoParaAdvJogar, tamanhoGridBatalhaVsComp;
+BOOL            navioEncontrado, achouDirecaoNavio;
+char            direcaoProximoTiro;
+NSInteger       proximoTiroAdv, primeiroCampoEncontrada, campoComNavioAfundadoAdv, campoComNavioAfundadoJog;
+
+@implementation BatalhaGridController
+
+static NSString *const reuseIdentifier = @"CellBatalha";
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    batalhaModel                    = [[BatalhaJogVsComp alloc]initBatalhaVsComp];
+    tamanhoGridBatalhaVsComp        = [batalhaModel tamanhoGrid];
+    tentativaPorTurno               = [batalhaModel tentativasPorTurno];
+    tentativaPorAcerto              = [batalhaModel tentativasPorAcerto];
+    tentativasRestantes             = tentativaPorTurno;
+    self.arrayNaviosDoAdversario    = [[NSMutableArray alloc]initWithArray: [batalhaModel gerarArrayNaviosAdv]];
+    
+    [self.batControllerPrinc atualizarLabelTentativa:tentativasRestantes];
+    secondsToPlay = 0;
+    tempoParaAdvJogar = 5;
+    
+    direcaoProximoTiro = 'C';
+    achouDirecaoNavio = NO;
+    navioEncontrado = NO;
+    proximoTiroAdv = 0;
+    
+    campoComNavioAfundadoAdv = 0;
+    campoComNavioAfundadoJog = 0;
+    [self.batControllerPrinc frotaAfundadaBatalha:0];
+}
+
+-(void)viewWillLayoutSubviews {
+    
+    UICollectionViewFlowLayout *layout;
+    
+    [self setAutomaticallyAdjustsScrollViewInsets:NO];
+    
+    layout = (id) self.collectionView.collectionViewLayout;
+    
+    layout.sectionInset = UIEdgeInsetsZero;
+    
+    float largura = (self.collectionView.frame.size.width-10)/tamanhoGridBatalhaVsComp;
+    float altura =  (self.collectionView.frame.size.height-10)/tamanhoGridBatalhaVsComp;
+    
+    layout.minimumInteritemSpacing = 0.5;
+    layout.minimumLineSpacing = 0.8;
+    
+    CGSize c = CGSizeMake(largura, altura);
+    
+    layout.itemSize = c;
+}
+
+#pragma mark - Collection view data source
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+    return UIEdgeInsetsMake(0, 0, 0, 0);
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return tamanhoGridBatalhaVsComp*tamanhoGridBatalhaVsComp;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UICollectionViewCell* celula = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    celula.tag = indexPath.row+1;
+    
+    if (vezDejogar == 'J') {
+        
+        celula.backgroundColor = [UIColor colorWithRed:0 green:0 blue:1 alpha:0.5];
+    }
+    else if (vezDejogar == 'A') {
+        
+        celula.backgroundColor = [UIColor colorWithRed:0 green:0.5 blue:1 alpha:0.5];
+    }
+    
+    return celula;
+}
+
+#pragma mark - Collection view delegate
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    UICollectionViewCell *celula = (UICollectionViewCell*)[self.collectionView viewWithTag:indexPath.row+1];
+    celula.userInteractionEnabled = NO;
+    if (tentativasRestantes > 0) {
+        
+        if (![batalhaModel testeJogada:(int)indexPath.row+1 comVezDeJogar:vezDejogar]) {
+            
+        }
+        else{
+            
+            if ([self testePosicao:(int)celula.tag]) {
+                
+                [batalhaModel tocarBomba];
+                [self.batControllerPrinc mostrarTentativaExtraLabelComQuantidade:tentativaPorAcerto];
+                
+                tentativasRestantes += tentativaPorAcerto;
+                tentativasRestantes --;
+                [self.batControllerPrinc msgNaLogLabel:[NSString stringWithFormat:@"TIRO CERTEIRO!"] comNavio:0];
+                if (tentativasRestantes>5) {
+                    
+                    tentativasRestantes = 5;
+                }
+                
+                [self.batControllerPrinc atualizarLabelTentativa:tentativasRestantes];
+                
+            }else{
+                
+                tentativasRestantes --;
+                [batalhaModel tocarSplash];
+            }
+            
+            [self.batControllerPrinc atualizarLabelTentativa:tentativasRestantes];
+        }
+    }
+    [self mudaParaCampoAdversario];
+    
+    if ([batalhaModel testeDeVitoria:vezDejogar eArrayDeNavios:self.arrayNaviosDoAdversario]) {
+        
+        [self encerrarJogo:'J'];
+    }
+    else{
+        
+        if (tentativasRestantes == 0) {
+            
+            self.view.userInteractionEnabled = NO;
+            tentativasRestantes = tentativaPorTurno;
+            secondsToPlay = 0;
+            batalhaModel.ultimoTiroDado = 0;
+            [self tempoParaAdvJogar];
+        }
+        else{
+            
+        }
+    }
+}
+
+#pragma mark - Testes
+
+-(BOOL)testePosicao:(int)jogada{
+    
+    if (vezDejogar == 'A') {
+        
+        for (Navio* nav in self.arrayNaviosDoJogador) {
+            
+            for (NSNumber *pos in nav.posicoes) {
+                
+                if ([pos integerValue]== jogada) {
+                    
+                    return YES;
+                }
+            }
+        }
+    }else{
+        
+        for (Navio* nav in self.arrayNaviosDoAdversario) {
+            
+            for (NSNumber *pos in nav.posicoes) {
+                
+                if ([pos integerValue]== jogada) {
+                    
+                    campoComNavioAfundadoJog += 1;
+                    [self.batControllerPrinc frotaAfundadaBatalha:[batalhaModel porcentagemDeFrotaAfundada:campoComNavioAfundadoJog]];
+                    return YES;
+                }
+            }
+        }
+    }
+   
+    return NO;
+}
+
+-(BOOL)TesteNavioDestruido:(Navio*)navio{
+    
+    NSInteger contador = 0;
+    NSArray* tiros;
+    BOOL navioAfundadoAgr = NO;
+    
+    if(vezDejogar == 'J'){
+        
+        tiros = [[NSArray alloc]initWithArray:[batalhaModel tirosJog]];
+    }else{
+        
+        tiros = [[NSArray alloc]initWithArray:[batalhaModel tirosAdv]];
+    }
+    
+    for (NSNumber* pos in navio.posicoes) {
+        
+        for (NSNumber* tiroAdv in tiros) {
+            
+            if ([pos integerValue] == [tiroAdv integerValue]) {
+                
+                contador++;
+                if ([pos integerValue] == batalhaModel.ultimoTiroDado) {
+                    
+                    navioAfundadoAgr = YES;
+                }
+                break;
+            }
+        }
+    }
+    
+    if (contador == navio.tamanho) {
+        
+        if (navioAfundadoAgr) {
+            
+            if (vezDejogar == 'A') {
+                
+            navioEncontrado = NO;
+            achouDirecaoNavio = NO;
+            direcaoProximoTiro = 'C';
+            }
+            
+            [batalhaModel tocarShipBell];
+            [self.batControllerPrinc msgNaLogLabel:[NSString stringWithFormat:@"%@ AFUNDADO!", navio.nome] comNavio:navio.tipo];
+        }
+        return YES;
+    }
+    return NO;
+}
+
+-(char)vezDeQuem{
+    
+    return vezDejogar;
+}
+
+#pragma mark - Temporizador
+
+-(void)tempoParaAdvJogar{
+    
+    self.tempoParaJogar = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(subractTime) userInfo:nil repeats:YES];
+    
+}
+
+-(void)subractTime{
+    
+    secondsToPlay++;
+    if (secondsToPlay==tempoParaAdvJogar) {
+        
+        [self mudaParaCampoJogador];
+        [self.batControllerPrinc atualizarLabelVez:@"Vez do Adversário"];
+        [self.batControllerPrinc atualizarLabelTentativa:tentativasRestantes];
+        
+    }
+    
+    if (secondsToPlay == tempoParaAdvJogar*2 && tentativasRestantes!=0) {
+        
+        tiroNaRodada++;
+       
+        if (batalhaModel.advInteligenteBatalhaVsComp && tentativasRestantes < 4) {
+            
+            [self vezDoAdversarioInteligente];
+        }else{
+            
+        [self vezDoAdversario];
+        }
+        
+        [self.batControllerPrinc atualizarLabelTentativa:tentativasRestantes];
+        [self mudaParaCampoJogador];
+        if (tentativasRestantes!=0) {
+            
+            secondsToPlay-=tempoParaAdvJogar;
+        }
+    }
+    
+    if (secondsToPlay == tempoParaAdvJogar*3) {
+        
+        batalhaModel.ultimoTiroDado = 0;
+        [self mudaParaCampoAdversario];
+        tentativasRestantes = tentativaPorTurno;
+        [self.batControllerPrinc atualizarLabelVez:@"Vez do Jogador"];
+        [self.batControllerPrinc atualizarLabelTentativa:tentativasRestantes];
+        [self.tempoParaJogar invalidate];
+    }
+    
+}
+
+-(void)mudarTempoParaAdvJogar{
+    secondsToPlay = 0;
+    if (tempoParaAdvJogar == 5) {
+        
+        tempoParaAdvJogar = 1;
+    }else{
+        
+        tempoParaAdvJogar = 5;
+    }
+    
+}
+
+-(void)encerrarJogo:(char)vencedor{
+    
+    [batalhaModel encerrarJogoComVencedor:vencedor];
+    if (vencedor == 'J') {
+        
+        UIAlertView* alerta = [[UIAlertView alloc]initWithTitle:@"Vitória" message:@"Parabéns você venceu!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        alerta.tag = 9;
+        [batalhaModel tocarWinSound];
+        [self mudaParaCampoAdversario];
+        [alerta show];
+        
+    }else{
+        
+        [self.tempoParaJogar invalidate];
+        self.tempoParaJogar = nil;
+        campoComNavioAfundadoAdv = [batalhaModel totalDeCasasComNavios];
+        UIAlertView* alerta = [[UIAlertView alloc]initWithTitle:@"Derrotado" message:@"Você perdeu!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        alerta.tag = 9;
+        [batalhaModel tocarSadTrambone];
+        [self mudaParaCampoJogador];
+        [alerta show];
+    }
+    batalhaModel.ultimoTiroDado = 0;
+}
+
+#pragma mark - Alert view
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    if (alertView.tag == 9) {
+        
+        self.collectionView.userInteractionEnabled = NO;
+        [self.batControllerPrinc liberarBotoesEMudaAVez:vezDejogar];
+        [self.batControllerPrinc mostrarEsconderBotaoPausar];
+    }
+    
+}
+
+#pragma mark - Mudar campo
+
+-(void)mudaParaCampoJogador{
+    
+    vezDejogar = 'A';
+    [self.batControllerPrinc frotaAfundadaBatalha:[batalhaModel porcentagemDeFrotaAfundada:campoComNavioAfundadoAdv]];
+    float tempoDeAnimacao = 0;
+    [self.batControllerPrinc mostrarEsconderBotaoPausar];
+    
+    for (int i = 1; i <=tamanhoGridBatalhaVsComp*tamanhoGridBatalhaVsComp; i++) {
+        
+        UICollectionViewCell* celula = (UICollectionViewCell*)[self.collectionView viewWithTag:i];
+        
+        celula.backgroundColor = [UIColor colorWithRed:0.3 green:-0.5 blue:1 alpha:0.5];
+        [celula.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        
+        NSArray *tirosAdversario = [[NSArray alloc]initWithArray:[batalhaModel tirosAdv]];
+        for (id tiroAd in tirosAdversario) {
+            
+            if ([tiroAd integerValue] == i) {
+                
+                celula.backgroundColor = [UIColor colorWithRed:0.3 green:-0.5 blue:1 alpha:1];
+                
+                if (i == batalhaModel.ultimoTiroDado){
+                    
+                    tempoDeAnimacao = 1;
+                    celula.alpha = 0;
+                    [UIView animateWithDuration:tempoDeAnimacao animations:^{
+                        celula.alpha = 1;
+                    }];
+                }
+                
+                for (Navio* nav in self.arrayNaviosDoJogador) {
+                    
+                    for (NSNumber *pos in nav.posicoes) {
+                        
+                        if (i == [pos integerValue]) {
+                            
+                            if (i == batalhaModel.ultimoTiroDado){
+                                
+                                tempoDeAnimacao = 1;
+                            }else{
+                                
+                                tempoDeAnimacao = 0.2;
+                            }
+                            if ([self TesteNavioDestruido:nav]) {
+                                
+                                if (nav.posicoes.count > 1) {
+                                    
+                                    if ([nav.posicoes[0] integerValue] == [nav.posicoes[1] integerValue]+1 || [nav.posicoes[0] integerValue] == [nav.posicoes[1] integerValue]-1) {
+                                        
+                                        UICollectionViewCell* celula = (UICollectionViewCell*)[self.collectionView viewWithTag:[pos integerValue]];
+                                        if (([pos integerValue] == [nav.posicoes[0] integerValue] && [nav.posicoes[0] integerValue] < [nav.posicoes[nav.posicoes.count-1] integerValue]) || ([pos integerValue] == [nav.posicoes[nav.posicoes.count-1] integerValue] && [nav.posicoes[0] integerValue] > [nav.posicoes[nav.posicoes.count-1] integerValue])) {
+                                            
+                                            UIImage *imageNavio = [UIImage imageNamed:@"frenteNavio.png"];
+                                            imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                                            UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                                            [celula addSubview:viewComNavio];
+                                        }else if(([pos integerValue] == [nav.posicoes[nav.posicoes.count-1] integerValue] && [nav.posicoes[0] integerValue] < [nav.posicoes[nav.posicoes.count-1] integerValue]) || ([pos integerValue] == [nav.posicoes[0] integerValue] && [nav.posicoes[0] integerValue] > [nav.posicoes[nav.posicoes.count-1] integerValue])){
+                                            
+                                            UIImage *imageNavio = [UIImage imageNamed:@"atrasNavio.png"];
+                                            imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                                            UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                                            [celula addSubview:viewComNavio];
+                                        }else{
+                                            
+                                            UIImage *imageNavio = [UIImage imageNamed:@"meioNavio.png"];
+                                            imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                                            UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                                            [celula addSubview:viewComNavio];
+                                        }
+                                        
+                                    }else{
+                                        
+                                        
+                                        UICollectionViewCell* celula = (UICollectionViewCell*)[self.collectionView viewWithTag:[pos integerValue]];
+                                        if (([pos integerValue] == [nav.posicoes[0] integerValue] && [nav.posicoes[0] integerValue] < [nav.posicoes[nav.posicoes.count-1] integerValue]) || ([pos integerValue] == [nav.posicoes[nav.posicoes.count-1] integerValue] && [nav.posicoes[0] integerValue] > [nav.posicoes[nav.posicoes.count-1] integerValue])) {
+                                            
+                                            UIImage *imageNavio = [UIImage imageNamed:@"frenteNavio.png"];
+                                            imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                                            UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                                            viewComNavio.transform = CGAffineTransformMakeRotation(1.5708);
+                                            [celula addSubview:viewComNavio];
+                                        }else if(([pos integerValue] == [nav.posicoes[nav.posicoes.count-1] integerValue] && [nav.posicoes[0] integerValue] < [nav.posicoes[nav.posicoes.count-1] integerValue]) || ([pos integerValue] == [nav.posicoes[0] integerValue] && [nav.posicoes[0] integerValue] > [nav.posicoes[nav.posicoes.count-1] integerValue])){
+                                            
+                                            UIImage *imageNavio = [UIImage imageNamed:@"atrasNavio.png"];
+                                            imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                                            UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                                            viewComNavio.transform = CGAffineTransformMakeRotation(1.5708);
+                                            [celula addSubview:viewComNavio];
+                                        }else{
+                                            
+                                            UIImage *imageNavio = [UIImage imageNamed:@"meioNavio.png"];
+                                            imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                                            UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                                            viewComNavio.transform = CGAffineTransformMakeRotation(1.5708);
+                                            [celula addSubview:viewComNavio];
+                                        }
+                                    }
+                                }else{
+                                    
+                                    UIImage *imageNavio = [UIImage imageNamed:@"submarino.png"];
+                                    imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                                    UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                                    [celula addSubview:viewComNavio];
+                                }
+                                
+                                if (i == batalhaModel.ultimoTiroDado){
+                                }
+                                
+                            }else{
+                                
+                                celula.backgroundColor = [UIColor colorWithRed:0.7 green:0.2 blue:0.2 alpha:1];
+                                
+                                if (i == batalhaModel.ultimoTiroDado) {
+                                    
+                                    celula.alpha = 0;
+                                    [UIView animateWithDuration:tempoDeAnimacao animations:^{
+                                        celula.alpha = 1;
+                                    }];
+                                }
+                            }
+                            break;
+                            break;
+                        }
+                    }
+                }
+                break;
+                break;
+            }else{
+                
+                [celula.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            }
+        }
+    }
+    self.view.userInteractionEnabled = NO;
+}
+
+-(void)mudaParaCampoAdversario{
+    
+    vezDejogar = 'J';
+    self.view.userInteractionEnabled = YES;
+    [self.batControllerPrinc frotaAfundadaBatalha:[batalhaModel porcentagemDeFrotaAfundada:campoComNavioAfundadoJog]];
+    float tempoDeAnimacao = 0;
+    [self.batControllerPrinc mostrarEsconderBotaoPausar];
+    for (int i = 1; i <=tamanhoGridBatalhaVsComp*tamanhoGridBatalhaVsComp; i++) {
+        
+        UICollectionViewCell* celula = (UICollectionViewCell*)[self.collectionView viewWithTag:i];
+        celula.backgroundColor = [UIColor colorWithRed:0 green:0 blue:1 alpha:0.5];
+        [celula.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        NSArray *tirosJogador = [[NSArray alloc]initWithArray:[batalhaModel tirosJog]];
+        for (id tiroJo in tirosJogador) {
+            
+            if ([tiroJo integerValue] == i) {
+                
+                celula.backgroundColor = [UIColor colorWithRed:0 green:0 blue:1 alpha:1];
+                if (i == batalhaModel.ultimoTiroDado){
+                    
+                    celula.alpha = 0;
+                    tempoDeAnimacao = 1;
+                    [UIView animateWithDuration:tempoDeAnimacao animations:^{
+                        celula.alpha = 1;
+                    }];
+                }
+                
+                for (Navio* nav in self.arrayNaviosDoAdversario) {
+                    
+                    for (id pos in nav.posicoes) {
+                        
+                        if (i == [pos integerValue]) {
+                            
+                            if (i == batalhaModel.ultimoTiroDado){
+                                
+                                tempoDeAnimacao = 1;
+                            }else{
+                                
+                                tempoDeAnimacao = 0.2;
+                            }
+                            
+                            if ([self TesteNavioDestruido:nav]) {
+                                
+                                if (nav.posicoes.count > 1) {
+                                    
+                                    if ([nav.posicoes[0] integerValue] == [nav.posicoes[1] integerValue]+1|| [nav.posicoes[0] integerValue] == [nav.posicoes[1] integerValue]-1) {
+                                        
+                                        UICollectionViewCell* celula = (UICollectionViewCell*)[self.collectionView viewWithTag:[pos integerValue]];
+                                        if (pos == nav.posicoes[0]) {
+                                            
+                                            UIImage *imageNavio = [UIImage imageNamed:@"frenteNavio.png"];
+                                            imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                                            UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                                            [celula addSubview:viewComNavio];
+                                        }else if(pos == nav.posicoes[nav.posicoes.count-1]){
+                                            
+                                            UIImage *imageNavio = [UIImage imageNamed:@"atrasNavio.png"];
+                                            imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                                            UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                                            [celula addSubview:viewComNavio];
+                                        }else{
+                                            
+                                            UIImage *imageNavio = [UIImage imageNamed:@"meioNavio.png"];
+                                            imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                                            UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                                            [celula addSubview:viewComNavio];
+                                        }
+                                        
+                                    }else{
+                                        
+                                        UICollectionViewCell* celula = (UICollectionViewCell*)[self.collectionView viewWithTag:[pos integerValue]];
+                                        if (pos == nav.posicoes[0]) {
+                                            
+                                            UIImage *imageNavio = [UIImage imageNamed:@"frenteNavio.png"];
+                                            imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                                            UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                                            viewComNavio.transform = CGAffineTransformMakeRotation(1.5708);
+                                            [celula addSubview:viewComNavio];
+                                        }else if(pos == nav.posicoes[nav.posicoes.count-1]){
+                                            
+                                            UIImage *imageNavio = [UIImage imageNamed:@"atrasNavio.png"];
+                                            imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                                            UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                                            viewComNavio.transform = CGAffineTransformMakeRotation(1.5708);
+                                            [celula addSubview:viewComNavio];
+                                        }else{
+                                            
+                                            UIImage *imageNavio = [UIImage imageNamed:@"meioNavio.png"];
+                                            imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                                            UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                                            viewComNavio.transform = CGAffineTransformMakeRotation(1.5708);
+                                            [celula addSubview:viewComNavio];
+                                        }
+                                    }
+                                }else{
+                                    
+                                    UIImage *imageNavio = [UIImage imageNamed:@"submarino.png"];
+                                    imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                                    UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                                    [celula addSubview:viewComNavio];
+                                }
+                                
+                                if (i == batalhaModel.ultimoTiroDado) {
+                                }
+                                
+                            }else{
+                                
+                                celula.backgroundColor = [UIColor colorWithRed:0.7 green:0.2 blue:0.2 alpha:1];
+                                if (i == batalhaModel.ultimoTiroDado) {
+                                    
+                                    celula.alpha = 0;
+                                    [UIView animateWithDuration:tempoDeAnimacao animations:^{
+                                        celula.alpha = 1;
+                                    }];
+                                }
+                            }
+                            break;
+                            break;
+                        }
+                    }
+                }
+                break;
+                break;
+            }else{
+                
+                [celula.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            }
+        }
+    }
+    self.view.userInteractionEnabled = YES;
+}
+
+-(void)mostrarNaviosDoCampo:(char)campoDeQuem{
+    
+    if (campoDeQuem == 'J') {
+        
+        for (int i = 1; i <=tamanhoGridBatalhaVsComp*tamanhoGridBatalhaVsComp; i++) {
+            UICollectionViewCell* celula = (UICollectionViewCell*)[self.collectionView viewWithTag:i];
+        
+            [celula.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            
+            for (Navio *nav in self.arrayNaviosDoAdversario) {
+                    
+                for (NSNumber *pos in nav.posicoes) {
+                        
+                    if ([pos integerValue] == i) {
+                        
+                        if (nav.posicoes.count > 1) {
+                            
+                            if ([nav.posicoes[0] integerValue] == [nav.posicoes[1] integerValue]+1|| [nav.posicoes[0] integerValue] == [nav.posicoes[1] integerValue]-1) {
+                                
+                                UICollectionViewCell* celula = (UICollectionViewCell*)[self.collectionView viewWithTag:[pos integerValue]];
+                                if (([pos integerValue] == [nav.posicoes[0] integerValue] && [nav.posicoes[0] integerValue] < [nav.posicoes[nav.posicoes.count-1] integerValue]) || ([pos integerValue] == [nav.posicoes[nav.posicoes.count-1] integerValue] && [nav.posicoes[0] integerValue] > [nav.posicoes[nav.posicoes.count-1] integerValue])) {
+                                    
+                                    UIImage *imageNavio = [UIImage imageNamed:@"frenteNavio.png"];
+                                    imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                                    UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                                    [celula addSubview:viewComNavio];
+                                }else if(([pos integerValue] == [nav.posicoes[nav.posicoes.count-1] integerValue] && [nav.posicoes[0] integerValue] < [nav.posicoes[nav.posicoes.count-1] integerValue]) || ([pos integerValue] == [nav.posicoes[0] integerValue] && [nav.posicoes[0] integerValue] > [nav.posicoes[nav.posicoes.count-1] integerValue])){
+                                    
+                                    UIImage *imageNavio = [UIImage imageNamed:@"atrasNavio.png"];
+                                    imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                                    UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                                    [celula addSubview:viewComNavio];
+                                }else{
+                                    
+                                    UIImage *imageNavio = [UIImage imageNamed:@"meioNavio.png"];
+                                    imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                                    UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                                    [celula addSubview:viewComNavio];
+                                }
+                                
+                            }else{
+                                
+                                
+                                UICollectionViewCell* celula = (UICollectionViewCell*)[self.collectionView viewWithTag:[pos integerValue]];
+                                if (([pos integerValue] == [nav.posicoes[0] integerValue] && [nav.posicoes[0] integerValue] < [nav.posicoes[nav.posicoes.count-1] integerValue]) || ([pos integerValue] == [nav.posicoes[nav.posicoes.count-1] integerValue] && [nav.posicoes[0] integerValue] > [nav.posicoes[nav.posicoes.count-1] integerValue])) {
+                                    
+                                    UIImage *imageNavio = [UIImage imageNamed:@"frenteNavio.png"];
+                                    imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                                    UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                                    viewComNavio.transform = CGAffineTransformMakeRotation(1.5708);
+                                    [celula addSubview:viewComNavio];
+                                }else if(([pos integerValue] == [nav.posicoes[nav.posicoes.count-1] integerValue] && [nav.posicoes[0] integerValue] < [nav.posicoes[nav.posicoes.count-1] integerValue]) || ([pos integerValue] == [nav.posicoes[0] integerValue] && [nav.posicoes[0] integerValue] > [nav.posicoes[nav.posicoes.count-1] integerValue])){
+                                    
+                                    UIImage *imageNavio = [UIImage imageNamed:@"atrasNavio.png"];
+                                    imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                                    UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                                    viewComNavio.transform = CGAffineTransformMakeRotation(1.5708);
+                                    [celula addSubview:viewComNavio];
+                                }else{
+                                    
+                                    UIImage *imageNavio = [UIImage imageNamed:@"meioNavio.png"];
+                                    imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                                    UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                                    viewComNavio.transform = CGAffineTransformMakeRotation(1.5708);
+                                    [celula addSubview:viewComNavio];
+                                }
+                            }
+                        }else{
+                            
+                            UIImage *imageNavio = [UIImage imageNamed:@"submarino.png"];
+                            imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                            UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                            [celula addSubview:viewComNavio];
+                        }
+                        
+                        break;
+                        break;
+                        break;
+                    }
+                }
+            }
+        }
+    }else if (campoDeQuem == 'A'){
+        
+        for (int i = 1; i <=tamanhoGridBatalhaVsComp*tamanhoGridBatalhaVsComp; i++) {
+            UICollectionViewCell* celula = (UICollectionViewCell*)[self.collectionView viewWithTag:i];
+            
+            [celula.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            
+            for (Navio *nav in self.arrayNaviosDoJogador) {
+                
+                for (NSNumber* pos in nav.posicoes) {
+                    
+                    if ([pos integerValue] == i) {
+                        
+                        if (nav.posicoes.count > 1) {
+                            
+                            if ([nav.posicoes[0] integerValue] == [nav.posicoes[1] integerValue]+1|| [nav.posicoes[0] integerValue] == [nav.posicoes[1] integerValue]-1) {
+                                
+                                UICollectionViewCell* celula = (UICollectionViewCell*)[self.collectionView viewWithTag:[pos integerValue]];
+                                if (([pos integerValue] == [nav.posicoes[0] integerValue] && [nav.posicoes[0] integerValue] < [nav.posicoes[nav.posicoes.count-1] integerValue]) || ([pos integerValue] == [nav.posicoes[nav.posicoes.count-1] integerValue] && [nav.posicoes[0] integerValue] > [nav.posicoes[nav.posicoes.count-1] integerValue])) {
+                                    
+                                    UIImage *imageNavio = [UIImage imageNamed:@"frenteNavio.png"];
+                                    imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                                    UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                                    [celula addSubview:viewComNavio];
+                                }else if(([pos integerValue] == [nav.posicoes[nav.posicoes.count-1] integerValue] && [nav.posicoes[0] integerValue] < [nav.posicoes[nav.posicoes.count-1] integerValue]) || ([pos integerValue] == [nav.posicoes[0] integerValue] && [nav.posicoes[0] integerValue] > [nav.posicoes[nav.posicoes.count-1] integerValue])){
+                                    
+                                    UIImage *imageNavio = [UIImage imageNamed:@"atrasNavio.png"];
+                                    imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                                    UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                                    [celula addSubview:viewComNavio];
+                                }else{
+                                    
+                                    UIImage *imageNavio = [UIImage imageNamed:@"meioNavio.png"];
+                                    imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                                    UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                                    [celula addSubview:viewComNavio];
+                                }
+                                
+                            }else{
+                                
+                                
+                                UICollectionViewCell* celula = (UICollectionViewCell*)[self.collectionView viewWithTag:[pos integerValue]];
+                                if (([pos integerValue] == [nav.posicoes[0] integerValue] && [nav.posicoes[0] integerValue] < [nav.posicoes[nav.posicoes.count-1] integerValue]) || ([pos integerValue] == [nav.posicoes[nav.posicoes.count-1] integerValue] && [nav.posicoes[0] integerValue] > [nav.posicoes[nav.posicoes.count-1] integerValue])) {
+                                    
+                                    UIImage *imageNavio = [UIImage imageNamed:@"frenteNavio.png"];
+                                    imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                                    UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                                    viewComNavio.transform = CGAffineTransformMakeRotation(1.5708);
+                                    [celula addSubview:viewComNavio];
+                                }else if(([pos integerValue] == [nav.posicoes[nav.posicoes.count-1] integerValue] && [nav.posicoes[0] integerValue] < [nav.posicoes[nav.posicoes.count-1] integerValue]) || ([pos integerValue] == [nav.posicoes[0] integerValue] && [nav.posicoes[0] integerValue] > [nav.posicoes[nav.posicoes.count-1] integerValue])){
+                                    
+                                    UIImage *imageNavio = [UIImage imageNamed:@"atrasNavio.png"];
+                                    imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                                    UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                                    viewComNavio.transform = CGAffineTransformMakeRotation(1.5708);
+                                    [celula addSubview:viewComNavio];
+                                }else{
+                                    
+                                    UIImage *imageNavio = [UIImage imageNamed:@"meioNavio.png"];
+                                    imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                                    UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                                    viewComNavio.transform = CGAffineTransformMakeRotation(1.5708);
+                                    [celula addSubview:viewComNavio];
+                                }
+                            }
+                        }else{
+                            
+                            UIImage *imageNavio = [UIImage imageNamed:@"submarino.png"];
+                            imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                            UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                            [celula addSubview:viewComNavio];
+                        }
+                        
+                        break;
+                        break;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    
+}
+
+#pragma mark - Jogada de adv inteligente
+
+-(void)vezDoAdversarioInteligente{
+    
+    NSInteger tamGrid = tamanhoGridBatalhaVsComp;
+    NSInteger jogada = 0;
+    
+    if (!navioEncontrado && [batalhaModel navioDescobertoNaGrid:self.arrayNaviosDoJogador]) {
+        
+        batalhaModel.ultimoTiroAdv = [batalhaModel campoEncontradoDeNavioNaoDestruidoTotalmente:self.arrayNaviosDoJogador];
+        primeiroCampoEncontrada = batalhaModel.ultimoTiroAdv;
+        direcaoProximoTiro = 'C';
+        navioEncontrado = YES;
+    }
+    
+    if (navioEncontrado) {
+        
+        if (achouDirecaoNavio) {
+            
+            switch (direcaoProximoTiro) {
+                    
+                case 'C':
+                    
+                    proximoTiroAdv = [batalhaModel ultimoTiroAdv] - tamGrid;
+                    if (proximoTiroAdv > 0){
+                        
+                        if([batalhaModel testeJogada:(int)proximoTiroAdv comVezDeJogar:vezDejogar]) {
+                        
+                            if ([self testePosicao:(int)proximoTiroAdv]) {
+                                
+                                [self acertouTiro];
+                            }else{
+                                
+                                direcaoProximoTiro = 'B';
+                                [batalhaModel tocarSplash];
+                                batalhaModel.ultimoTiroAdv = primeiroCampoEncontrada;
+                            }
+                            
+                            break;
+                        }else{
+                            
+                            batalhaModel.ultimoTiroAdv = primeiroCampoEncontrada;
+                            direcaoProximoTiro = 'B';
+                        }
+                    }else{
+                        
+                        direcaoProximoTiro = 'B';
+                        batalhaModel.ultimoTiroAdv = primeiroCampoEncontrada;
+                    }
+                    
+                case 'B':
+                    proximoTiroAdv = batalhaModel.ultimoTiroAdv + tamGrid;
+                    if (proximoTiroAdv < (tamGrid*tamGrid)+1) {
+                        
+                        if ( [batalhaModel testeJogada:(int)proximoTiroAdv comVezDeJogar:vezDejogar]) {
+                            
+                            if ([self testePosicao:(int)proximoTiroAdv]) {
+                                
+                                [self acertouTiro];
+                            }else{
+                                
+                                direcaoProximoTiro = 'D';
+                                [batalhaModel tocarSplash];
+                                batalhaModel.ultimoTiroAdv = primeiroCampoEncontrada;
+                            }
+                            break;
+                        }else{
+                            
+                            batalhaModel.ultimoTiroAdv = primeiroCampoEncontrada;
+                            direcaoProximoTiro = 'D';
+                        }
+                    }else{
+                        
+                        direcaoProximoTiro = 'D';
+                        batalhaModel.ultimoTiroAdv = primeiroCampoEncontrada;
+                    }
+                case 'D':
+                    
+                    proximoTiroAdv = batalhaModel.ultimoTiroAdv + 1;
+                    if ([batalhaModel testeDeCamposNaMesmaLinha:batalhaModel.ultimoTiroAdv eCampo2:proximoTiroAdv]) {
+                        
+                        if ([batalhaModel testeJogada:(int)proximoTiroAdv comVezDeJogar:vezDejogar]) {
+                        
+                            if ([self testePosicao:(int)proximoTiroAdv]) {
+                                
+                                [self acertouTiro];
+                            }else{
+                                
+                                direcaoProximoTiro = 'E';
+                                [batalhaModel tocarSplash];
+                                batalhaModel.ultimoTiroAdv = primeiroCampoEncontrada;
+                            }
+                            break;
+                        }else{
+                            
+                            batalhaModel.ultimoTiroAdv = primeiroCampoEncontrada;
+                            direcaoProximoTiro = 'E';
+                        }
+                    }else{
+                        
+                        direcaoProximoTiro = 'E';
+                        batalhaModel.ultimoTiroAdv = primeiroCampoEncontrada;
+                    }
+                case 'E':
+                    
+                    proximoTiroAdv = batalhaModel.ultimoTiroAdv - 1;
+                    if ([batalhaModel testeDeCamposNaMesmaLinha:proximoTiroAdv eCampo2:batalhaModel.ultimoTiroAdv]) {
+                        
+                        if ([batalhaModel testeJogada:(int)proximoTiroAdv comVezDeJogar:vezDejogar]) {
+                            
+                            if ([self testePosicao:(int)proximoTiroAdv]) {
+                                
+                                [self acertouTiro];
+                            }else{
+                                
+                                direcaoProximoTiro = 'C';
+                                [batalhaModel tocarSplash];
+                                batalhaModel.ultimoTiroAdv = primeiroCampoEncontrada;
+                            }
+                            break;
+                        }else{
+                            
+                            batalhaModel.ultimoTiroAdv = primeiroCampoEncontrada;
+                            direcaoProximoTiro = 'C';
+                        }
+                    }else{
+                        
+                        direcaoProximoTiro = 'C';
+                        batalhaModel.ultimoTiroAdv = primeiroCampoEncontrada;
+                    }
+                    default:
+                    
+                    proximoTiroAdv = [batalhaModel campoParaJogarComNavioNoCampo:primeiroCampoEncontrada eArrayDenaviosJogador:self.arrayNaviosDoJogador];
+                    primeiroCampoEncontrada = proximoTiroAdv;
+                    if ([batalhaModel testeJogada:(int)proximoTiroAdv comVezDeJogar:vezDejogar]) {
+                        
+                        if ([self testePosicao:(int)proximoTiroAdv]) {
+                            
+                            achouDirecaoNavio = NO;
+                            [self acertouTiro];
+                        }
+                    }
+                    
+                    break;
+            }
+            
+            [self.batControllerPrinc atualizarLabelTentativa:tentativasRestantes];
+        }
+        else{
+            
+            switch (direcaoProximoTiro) {
+                    
+                case 'C':
+                    
+                    proximoTiroAdv = batalhaModel.ultimoTiroAdv - tamGrid;
+                    if (proximoTiroAdv > 0 && [batalhaModel testeJogada:(int)proximoTiroAdv comVezDeJogar:vezDejogar]) {
+                        
+                        if ([self testePosicao:(int)proximoTiroAdv]) {
+                            
+                            [self acertouTiro];
+                            achouDirecaoNavio = YES;
+                            direcaoProximoTiro = 'C';
+                        }else{
+                            
+                            direcaoProximoTiro = 'D';
+                            [batalhaModel tocarSplash];
+                        }
+
+                        break;
+                    }else{
+                        
+                        direcaoProximoTiro = 'D';
+                        [batalhaModel tocarSplash];
+                    }
+
+                case 'B':
+                    
+                    proximoTiroAdv = batalhaModel.ultimoTiroAdv + tamGrid;
+                    if (proximoTiroAdv < (tamGrid*tamGrid)+1 && [batalhaModel testeJogada:(int)proximoTiroAdv comVezDeJogar:vezDejogar]) {
+                        
+                        if ([self testePosicao:(int)proximoTiroAdv]) {
+                            
+                            [self acertouTiro];
+                            achouDirecaoNavio = YES;
+                            direcaoProximoTiro = 'B';
+                        }else{
+                            
+                            direcaoProximoTiro = 'E';
+                            [batalhaModel tocarSplash];
+                        }
+                        break;
+                    }else{
+                        direcaoProximoTiro = 'E';
+                    }
+
+                case 'D':
+                    
+                    proximoTiroAdv = batalhaModel.ultimoTiroAdv + 1;
+                    if ([batalhaModel testeDeCamposNaMesmaLinha:batalhaModel.ultimoTiroAdv eCampo2:proximoTiroAdv] && [batalhaModel testeJogada:(int)proximoTiroAdv comVezDeJogar:vezDejogar]) {
+                       
+                        if ([self testePosicao:(int)proximoTiroAdv]) {
+                            
+                            achouDirecaoNavio = YES;
+                            direcaoProximoTiro = 'D';
+                            [self acertouTiro];
+                        }else{
+                            
+                            direcaoProximoTiro = 'B';
+                            [batalhaModel tocarSplash];
+                        }
+                        break;
+                    }else{
+                        
+                        direcaoProximoTiro = 'B';
+                    }
+
+                case 'E':
+                    
+                    proximoTiroAdv = batalhaModel.ultimoTiroAdv - 1;
+                    if ([batalhaModel testeDeCamposNaMesmaLinha:proximoTiroAdv eCampo2:batalhaModel.ultimoTiroAdv]) {
+                        
+                        if ([batalhaModel testeJogada:(int)proximoTiroAdv comVezDeJogar:vezDejogar]) {
+                        
+                            if ([self testePosicao:(int)proximoTiroAdv]) {
+                                
+                                achouDirecaoNavio = YES;
+                                direcaoProximoTiro = 'E';
+                                [self acertouTiro];
+                            }
+                            break;
+                        }
+                    }
+                    
+                default:
+                    proximoTiroAdv = [batalhaModel campoParaJogarComNavioNoCampo:primeiroCampoEncontrada eArrayDenaviosJogador:self.arrayNaviosDoJogador];
+                    primeiroCampoEncontrada = proximoTiroAdv;
+                    if ([batalhaModel testeJogada:(int)proximoTiroAdv comVezDeJogar:vezDejogar]) {
+                        
+                        if ([self testePosicao:(int)proximoTiroAdv]) {
+                            
+                            achouDirecaoNavio = NO;
+                            [self acertouTiro];
+                        }
+                    }
+
+                    break;
+                }
+        }
+        [self.batControllerPrinc atualizarLabelTentativa:tentativasRestantes];
+        tentativasRestantes --;
+    }else{
+        
+        do{
+            
+            jogada = (arc4random() % (tamGrid*tamGrid))+1;
+            
+        }while (![batalhaModel testeJogada:(int)jogada comVezDeJogar:vezDejogar]);
+    
+        if ([self testePosicao:(int)jogada]) {
+            
+            [self.batControllerPrinc mostrarTentativaExtraLabelComQuantidade:tentativaPorAcerto];
+            navioEncontrado = YES;
+            batalhaModel.ultimoTiroAdv = jogada;
+            
+            tentativasRestantes += tentativaPorAcerto;
+            tentativasRestantes --;
+            [self.batControllerPrinc msgNaLogLabel:[NSString stringWithFormat:@"TIRO CERTEIRO!"] comNavio:0];
+            campoComNavioAfundadoAdv += 1;
+            primeiroCampoEncontrada = jogada;
+            [self.batControllerPrinc frotaAfundadaBatalha:[batalhaModel porcentagemDeFrotaAfundada:campoComNavioAfundadoAdv]];
+
+            [batalhaModel tocarBomba];
+            [self.batControllerPrinc atualizarLabelTentativa:tentativasRestantes];
+        }
+        else{
+            
+            tentativasRestantes --;
+            [batalhaModel tocarSplash];
+        }
+    }
+    
+    if (tentativasRestantes>5) {
+        
+        tentativasRestantes = 5;
+    }
+    
+    if ([batalhaModel testeDeVitoria:vezDejogar eArrayDeNavios:self.arrayNaviosDoJogador]) {
+        
+        [self encerrarJogo:'A'];
+    }else{
+        
+        if (tentativasRestantes == 0) {
+        }
+        else{
+            
+            [self.batControllerPrinc atualizarLabelTentativa:tentativasRestantes];
+        }
+    }
+}
+
+-(void)acertouTiro{
+    
+    campoComNavioAfundadoAdv += 1;
+    [self.batControllerPrinc frotaAfundadaBatalha:[batalhaModel porcentagemDeFrotaAfundada:campoComNavioAfundadoAdv]];
+    batalhaModel.ultimoTiroAdv = proximoTiroAdv;
+    tentativasRestantes += tentativaPorAcerto;
+    [self.batControllerPrinc mostrarTentativaExtraLabelComQuantidade:tentativaPorAcerto];
+    [self.batControllerPrinc msgNaLogLabel:[NSString stringWithFormat:@"TIRO CERTEIRO!"] comNavio:0];
+    [batalhaModel tocarBomba];
+}
+
+#pragma mark - Jogada de adv normal
+
+-(void)vezDoAdversario{
+    
+    int tamGrid = (int)tamanhoGridBatalhaVsComp;
+    int jogada = 0;
+    do{
+        
+        jogada = (arc4random() % (tamGrid*tamGrid))+1;
+    }while (![batalhaModel testeJogada:jogada comVezDeJogar:vezDejogar]);
+    
+    if ([self testePosicao:jogada]) {
+        
+        [self.batControllerPrinc mostrarTentativaExtraLabelComQuantidade:tentativaPorAcerto];
+        
+        tentativasRestantes += tentativaPorAcerto;
+        tentativasRestantes --;
+        [self.batControllerPrinc msgNaLogLabel:[NSString stringWithFormat:@"TIRO CERTEIRO!"] comNavio:0];
+        if (tentativasRestantes>5) {
+            
+            tentativasRestantes = 5;
+        }
+        campoComNavioAfundadoAdv += 1;
+        [self.batControllerPrinc frotaAfundadaBatalha:[batalhaModel porcentagemDeFrotaAfundada:campoComNavioAfundadoAdv]];
+        
+        [batalhaModel tocarBomba];
+        [self.batControllerPrinc atualizarLabelTentativa:tentativasRestantes];
+    }
+    else{
+        
+        tentativasRestantes --;
+        [batalhaModel tocarSplash];
+    }
+    
+    if ([batalhaModel testeDeVitoria:vezDejogar eArrayDeNavios:self.arrayNaviosDoJogador]) {
+        
+        [self encerrarJogo:vezDejogar];
+    }else{
+        
+        if (tentativasRestantes == 0) {
+            
+        }
+        else{
+            
+            [self.batControllerPrinc atualizarLabelTentativa:tentativasRestantes];
+        }
+    }
+}
+
+@end

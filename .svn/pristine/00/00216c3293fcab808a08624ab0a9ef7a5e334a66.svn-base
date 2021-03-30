@@ -1,0 +1,113 @@
+//
+//  PaginaInicialModel.m
+//  Batalha Naval
+//
+//  Created by Gabriel A. Dragoni on 3/1/16.
+//  Copyright © 2016 Gabriel A. Dragoni. All rights reserved.
+//
+
+#import "PaginaInicial.h"
+#import "PaginaInicialController.h"
+#import "ConfiguracoesDAO.h"
+#import "Soms.h"
+#import "JogadorDAO.h"
+#import "ChamadasRestKit.h"
+
+Soms *somIniciofasf;
+UIAlertView *alertaJogfsad;
+NSString *jogadorAtivoadsf;
+
+@implementation PaginaInicial
+@synthesize pagInicialPai;
+
+-(void)testarJogadorAtivo:(PaginaInicialController*)sender{
+    
+    ConfiguracoesData *config = [[ConfiguracoesData alloc] initConfiguracoes];
+    jogadorAtivo = config.jogadorAtivo;
+    pagInicialPai = sender;
+    
+    if(jogadorAtivo == nil || [jogadorAtivo isEqualToString: @""]){
+        
+        alertaJog                   = [[UIAlertView alloc]initWithTitle:@"Escolher Jogador" message:@"Digite o seu nome" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Entrar", nil];
+        alertaJog.alertViewStyle    = UIAlertViewStylePlainTextInput;
+        alertaJog.tag               = 01;
+        [alertaJog show];
+    }else{
+        
+        NSString* msgAlerta = [NSString stringWithFormat:@"Jogador ativo: %@", jogadorAtivo];
+        
+        alertaJog = [[UIAlertView alloc] initWithTitle:@"Bem vindo" message:msgAlerta delegate:self cancelButtonTitle:@"Entrar" otherButtonTitles:@"Trocar jogador", nil];
+        alertaJog.tag = 03;
+        [alertaJog show];
+    }
+
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    JogadorDAO *playerIni;
+    
+    if (alertView.tag == 01) {
+        
+        if (buttonIndex==0) {
+            
+            UITextField *nomeJogadorTextField = [alertView textFieldAtIndex:0];
+            if (nomeJogadorTextField.text.length < 3) {
+                
+                UIAlertView * alerta = [[UIAlertView alloc]initWithTitle:@"Erro" message:@"O nome deve conter no mínimo 3 caracteres" delegate:self     cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                alerta.tag = 02;
+                [alerta show];
+            }else if (nomeJogadorTextField.text.length > 10){
+                
+                UIAlertView * alerta = [[UIAlertView alloc]initWithTitle:@"Erro" message:@"O nome deve conter no máximo 10 caracteres" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                alerta.tag = 02;
+                [alerta show];
+            }else{
+                
+                playerIni = [JogadorDAO new];
+                [playerIni criarNovoJogador:nomeJogadorTextField.text];
+                
+                ConfiguracoesDAO *configDAO = [ConfiguracoesDAO new];
+                
+                [configDAO mudarJogadorAtivo:nomeJogadorTextField.text.capitalizedString];
+                
+                pagInicialPai.jogadorAtivoLabel.text = [NSString stringWithFormat:@"Jogador Ativo: %@", nomeJogadorTextField.text.capitalizedString];
+            }
+        }
+    }
+    else if (alertView.tag == 02){
+        
+        [alertaJog show];
+    }
+    else if(alertView.tag == 03){
+        
+        if (buttonIndex == 0) {
+            
+            pagInicialPai.jogadorAtivoLabel.text = [NSString stringWithFormat:@"Jogador Ativo: %@", jogadorAtivo];
+            
+        }else if (buttonIndex == 1){
+            
+            [pagInicialPai performSegueWithIdentifier:@"inicialParaLista" sender:self];
+        }
+    }
+}
+
+-(NSString*)nomeJogadorAtivo{
+    
+    return jogadorAtivo;
+}
+
+-(void)chamadasIniciaisRK{
+    
+    [[ChamadasRestKit sharedInstance] mudarVarChamadaEmExecucao];
+    [[ChamadasRestKit sharedInstance] carregarConfigDeJogadores];
+}
+
+-(void)tocarMusicaDeInicio{
+    
+    somInicio = [Soms sharedInstanceSom];
+    
+    [somInicio tocarTema];
+}
+
+@end

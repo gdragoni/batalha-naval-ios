@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShipDistributor">
+            <connections>
+                <outlet property="collectionView_" destination="Zki-kU-hOd" id="tTS-9H-apo"/>
+                <outlet property="view" destination="MaM-Fm-sgZ" id="iTu-FA-bJ4"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="MaM-Fm-sgZ">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Zki-kU-hOd">
+                    <rect key="frame" x="0.0" y="80" width="320" height="320"/>
+                    <color key="backgroundColor" red="0.6588235294" green="0.78039215689999997" blue="0.84705882349999995" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="Zki-kU-hOd" secondAttribute="height" multiplier="1:1" id="INw-Ff-bqU"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="aUk-Fd-Las">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="Wsz-Ht-vEX"/>
+                        <outlet property="delegate" destination="-1" id="ydO-Ka-nWV"/>
+                    </connections>
+                </collectionView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distribua seus navios" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eiU-fU-NXh">
+                    <rect key="frame" x="-10" y="25" width="341" height="25"/>
+                    <color key="backgroundColor" red="0.36862745099999999" green="0.16078431369999999" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="25" id="kgU-qb-ri7"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.59607843140000005" green="0.72941176470000002" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="Zki-kU-hOd" firstAttribute="top" secondItem="eiU-fU-NXh" secondAttribute="bottom" constant="30" id="JEC-7X-P91"/>
+                <constraint firstItem="Zki-kU-hOd" firstAttribute="centerY" secondItem="MaM-Fm-sgZ" secondAttribute="centerY" id="XI2-24-jBM"/>
+                <constraint firstItem="eiU-fU-NXh" firstAttribute="width" secondItem="Zki-kU-hOd" secondAttribute="width" constant="20" id="e7U-MR-hKv"/>
+                <constraint firstItem="eiU-fU-NXh" firstAttribute="centerX" secondItem="MaM-Fm-sgZ" secondAttribute="centerX" id="eSZ-Jk-O3c"/>
+                <constraint firstItem="Zki-kU-hOd" firstAttribute="width" secondItem="MaM-Fm-sgZ" secondAttribute="width" id="yPU-Nf-WGl"/>
+                <constraint firstItem="Zki-kU-hOd" firstAttribute="centerX" secondItem="MaM-Fm-sgZ" secondAttribute="centerX" id="zk8-Eq-t7T"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="345" y="235"/>
+        </view>
+    </objects>
+</document>

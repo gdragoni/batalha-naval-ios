@@ -1,0 +1,110 @@
+//
+//  AfundarNaviosRegras.m
+//  Batalha Naval
+//
+//  Created by Gabriel A. Dragoni on 3/3/16.
+//  Copyright © 2016 Gabriel A. Dragoni. All rights reserved.
+//
+
+#import "AfundarNavios.h"
+#import "UserDefault.h"
+#import "GeradorDeNavios.h"
+#import "Sound.h"
+#import "PlayerCompDAO.h"
+
+@implementation AfundarNavios{
+    
+    ConfigurationComp *config;
+    Soms *som;
+    NSMutableArray *testeDeCampo;
+}
+
+-(instancetype)initAfundarNavios{
+    
+    if (self = [super init]) {
+        
+        config          = [UserDefault getConfiguracoes];
+        som             = [Soms new];
+        testeDeCampo    = [NSMutableArray new];
+    }
+    
+    return self;
+}
+
+#pragma mark - Metodos
+
+-(NSInteger)porcentagemDeFrotaAfundadaAfundar:(NSInteger)campoComNavio{
+    
+    NSInteger porcentagem = 0;
+    porcentagem = campoComNavio * 100 / 18;
+    
+    return porcentagem;
+}
+
+-(NSArray*)gerarArrayDeNaviosAfundar{
+    
+    GeradorDeNavios *objNavios = [[GeradorDeNavios alloc]init];
+    
+    NSArray *array = [[NSArray alloc]initWithArray:[objNavios arrayComPortaAvioes:1 qtdEncouracado:1 qtdCruiser:1 qtdDestroyer:2 qtdSubmarino:2 tamDaGrid:10 comConfigPadra:YES]];
+    
+    return array;
+}
+
+-(BOOL)removeNaviosAfundar:(NSInteger)tag{
+    
+    if ([self testarArrayAfundar:(int)tag]) {
+        
+        [testeDeCampo addObject:@(tag)];
+    }
+    if (testeDeCampo.count == 18) {
+        
+        return YES;
+    }
+    
+    return NO;
+}
+
+-(BOOL)testarArrayAfundar:(int)tag{
+    
+    for (id item in testeDeCampo) {
+        
+        if ([item integerValue] == tag) {
+            
+            return NO;
+        }
+    }
+    
+    return YES;
+}
+
+-(void)adicionarRecordAoJogador:(NSInteger)tempo{
+    
+    PlayerCompDAO * jogDAO = [PlayerCompDAO new];
+    PlayerComp *jogador = [UserDefault getJogadorAtivo];
+    
+    [jogDAO adicionarMelhorTempoParaJogador:jogador.nome Tempo:tempo];
+}
+
+#pragma mark - Soms
+
+-(void)tocarWinAfundar{
+    
+    [som tocarWinSound];
+}
+
+-(void)tocarSplashAfundar{
+    
+    [som tocarSplash];
+}
+
+-(void)tocarBombaAfundar{
+    
+    [som tocarBomba];
+}
+
+-(void)tocarShipBellAfundar{
+    
+    [som tocarShipBell];
+}
+
+@end

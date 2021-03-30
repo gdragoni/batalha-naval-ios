@@ -1,0 +1,28 @@
+//
+//  BatalhaGridController.h
+//  Batalha Naval
+//
+//  Created by Gabriel A. Dragoni on 1/14/16.
+//  Copyright (c) 2016 Gabriel A. Dragoni. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@class BatalhaVsComputadorController;
+
+@interface BatalhaGridController : UICollectionViewController
+
+@property (nonatomic) BatalhaVsComputadorController *batControllerPrinc;
+@property (nonatomic) NSMutableArray                *arrayNaviosDoJogador, *arrayNaviosDoAdversario;
+@property (nonatomic) NSTimer                       *tempoParaJogar;
+@property (nonatomic) NSInteger                     ultimoTiroDado;
+
+-(void)vezDoAdversario;
+-(void)mudaParaCampoAdversario;
+-(void)mudaParaCampoJogador;
+-(void)tempoParaAdvJogar;
+-(void)mostrarNaviosDoCampo:(char)campoDeQuem;
+-(char)vezDeQuem;
+-(void)mudarTempoParaAdvJogar;
+
+@end

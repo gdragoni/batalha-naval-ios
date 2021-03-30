@@ -1,0 +1,17 @@
+//
+//  UIPopoverController+iPhone.m
+//  Batalha Naval
+//
+//  Created by Gabriel A. Dragoni on 4/19/16.
+//  Copyright © 2016 Gabriel A. Dragoni. All rights reserved.
+//
+
+#import "UIPopoverController+iPhone.h"
+
+@implementation UIPopoverController (iPhone)
+
++(BOOL)_popoversDisabled {
+    return NO;
+}
+
+@end

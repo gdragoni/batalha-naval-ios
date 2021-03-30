@@ -1,0 +1,22 @@
+//
+//  PaginaInicialModel.h
+//  Batalha Naval
+//
+//  Created by Gabriel A. Dragoni on 3/1/16.
+//  Copyright © 2016 Gabriel A. Dragoni. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+@class PaginaInicialController;
+@interface PaginaInicial : NSObject
+
+@property (nonatomic) PaginaInicialController* pagInicialPai;
+
+-(void)chamadasIniciaisRK;
+-(void)testarJogadorAtivo:(id)sender;
+-(void)tocarMusicaDeInicio;
+-(NSString*)nomeJogadorAtivo;
+
+@end

@@ -1,0 +1,41 @@
+//
+//  BatalhaVsComputadorController.h
+//  Batalha Naval
+//
+//  Created by Gabriel A. Dragoni on 1/14/16.
+//  Copyright (c) 2016 Gabriel A. Dragoni. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "Navio.h"
+@class DistribuidorController, BatalhaGridController;
+
+@interface BatalhaVsComputadorController : UIViewController
+
+@property (nonatomic)DistribuidorController *distribuidorController;
+@property (nonatomic) BatalhaGridController *batalhaGrid;
+@property (nonatomic) NSMutableArray        *arrayNaviosJogador;
+@property (nonatomic) char                  vezDeAlguem;
+
+@property (weak, nonatomic) IBOutlet UILabel    *vezLabel;
+@property (weak, nonatomic) IBOutlet UILabel    *tentativaLabel;
+@property (weak, nonatomic) IBOutlet UILabel    *tentExtra;
+@property (weak, nonatomic) IBOutlet UILabel    *logLabel;
+@property (weak, nonatomic) IBOutlet UILabel    *frotaBatLabel;
+@property (weak, nonatomic) IBOutlet UIButton   *trocarCampoOutlet;
+@property (weak, nonatomic) IBOutlet UIButton   *mostrarNaviosOutlet;
+@property (weak, nonatomic) IBOutlet UIButton   *finalizarOutlet;
+
+- (IBAction)trocarCampoButton:(id)sender;
+- (IBAction)mostrarNaviosButton:(id)sender;
+- (IBAction)finalizarButton:(id)sender;
+
+-(void)atualizarLabelTentativa:(NSInteger)tentativa;
+-(void)atualizarLabelVez:(NSString*)vezDeQuem;
+-(void)mostrarTentativaExtraLabelComQuantidade:(NSInteger)qtdDeTentativas;
+-(void)liberarBotoesEMudaAVez:(char)vezDeQuem;
+-(void)mostrarEsconderBotaoPausar;
+-(void)msgNaLogLabel:(NSString*)msg comNavio:(NavioTipo)tipo;
+-(void)frotaAfundadaBatalha:(NSInteger)porcentagem;
+
+@end

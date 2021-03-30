@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="14F27" minimumToolsVersion="Xcode 4.3">
+    <entity name="ConfiguracoesData" representedClassName="ConfiguracoesData" syncable="YES">
+        <attribute name="advInteligente" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="efeitosSonoros" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="jogadorAtivo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="qtdCruiser" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="qtdDestroyer" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="qtdEncouracado" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="qtdPortaAvoes" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="qtdSubmarino" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="tamanhoGrid" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="tentAcerto" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="tentTurno" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="Jogadores" representedClassName="Jogadores" syncable="YES">
+        <attribute name="idJogador" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="melhorTempo" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="nome" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="numJogosJogados" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="numVitorias" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="ConfiguracoesData" positionX="-36" positionY="45" width="128" height="210"/>
+        <element name="Jogadores" positionX="-63" positionY="-18" width="128" height="120"/>
+    </elements>
+</model>

@@ -1,0 +1,25 @@
+//
+//  BatalhaNavalDAO.m
+//  Batalha Naval
+//
+//  Created by Gabriel A. Dragoni on 3/24/16.
+//  Copyright © 2016 Gabriel A. Dragoni. All rights reserved.
+//
+
+#import "BatalhaNavalDAO.h"
+#import "AppDelegate.h"
+
+NSManagedObjectContext *context;
+
+@implementation BatalhaNavalDAO
+
+-(NSArray *)recuperarInformacoesDaEntidade: (NSString *)entidade{
+    
+    context = [[AppDelegate sharedInstance] managedObjectContext];
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:entidade];
+    
+    return [[context executeFetchRequest:request error:nil] mutableCopy];
+}
+
+@end

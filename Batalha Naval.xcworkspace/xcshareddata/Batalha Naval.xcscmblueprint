@@ -1,0 +1,25 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "b60a1c6e-fa95-42aa-8744-1823183835b1++9510",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "b60a1c6e-fa95-42aa-8744-1823183835b1++9510" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "b60a1c6e-fa95-42aa-8744-1823183835b1++9510" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "F905F6C5-6575-469B-BA38-2833066EEABE",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "b60a1c6e-fa95-42aa-8744-1823183835b1++9510" : "trunk\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Batalha Naval",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Batalha Naval.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/cvs.luxfacta.com.br\/repos\/estagio",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "b60a1c6e-fa95-42aa-8744-1823183835b1++9510"
+    }
+  ]
+}

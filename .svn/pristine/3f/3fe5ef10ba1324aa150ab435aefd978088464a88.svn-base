@@ -1,0 +1,358 @@
+//
+//  DistribuidorDeNaviosGridController.m
+//  Batalha Naval
+//
+//  Created by Gabriel A. Dragoni on 1/7/16.
+//  Copyright (c) 2016 Gabriel A. Dragoni. All rights reserved.
+//
+
+#import "DistribuidorDeNaviosGridController.h"
+#import "ShipGenerator.h"
+#import "DistribuidorController.h"
+#import "TestField.h"
+#import "ConfigurationComp.h"
+#import "UserDefault.h"
+#import "Sound.h"
+
+
+@implementation DistribuidorDeNaviosGridController{
+    UISwipeGestureRecognizer  *swipeLeft, *swipeRight, *swipeUp, *swipeDown;
+    ShipGenerator             *shipGenerator;
+    ConfigurationComp         *config;
+    Sound                     *sound;
+    UICollectionViewCell      *cell;
+    NSMutableArray            *arrayWithShips, *arrayUsedFields;
+    NSInteger                 currentShip;
+}
+
+static NSString * const reuseIdentifier = @"CellGrid";
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    sound = [Sound new];
+    config = [UserDefault getConfiguration];
+    arrayUsedFields = [NSMutableArray new];
+    shipGenerator = [ShipGenerator new];
+    currentShip = 0;
+    arrayWithShips = [[NSMutableArray alloc]initWithArray:[shipGenerator arrayWithAmountPortaAvioes:config.amountPortaAvioes amountEncouracado:config.amountEncouracado amountCruiser:config.amountCruiser amountDestroyer:config.amountDestroyer amountSubmarino:config.amountSubmarino tableSize:config.tableSize isStandardConfiguration:NO]];
+    [self.sender mudarNavioAtual:arrayComNavios.firstObject];
+}
+
+-(void)viewWillLayoutSubviews {
+    
+    UICollectionViewFlowLayout *layout;
+    
+    layout = (id) self.collectionView.collectionViewLayout;
+    
+    float largura = (self.collectionView.frame.size.width-10)/config.configTamanhoGrid;
+    float altura =  (self.collectionView.frame.size.height-10)/config.configTamanhoGrid;
+    
+    layout.minimumInteritemSpacing = 0.5;
+    layout.minimumLineSpacing = 1;
+    
+    CGSize c = CGSizeMake(largura, altura);
+    
+    layout.itemSize = c;
+    
+    self.collectionView.scrollEnabled = NO;
+}
+
+#pragma mark - Collection view data source
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return config.configTamanhoGrid*config.configTamanhoGrid;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    cell.tag = indexPath.row+1;
+    
+    cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:1 alpha:0.5];
+    
+    swipeLeft = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(didSwipe:)];
+    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    
+    swipeRight = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(didSwipe:)];
+    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+    
+    swipeUp = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(didSwipe:)];
+    swipeUp.direction = UISwipeGestureRecognizerDirectionUp;
+    
+    swipeDown = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(didSwipe:)];
+    swipeDown.direction = UISwipeGestureRecognizerDirectionDown;
+    
+    [cell addGestureRecognizer:swipeLeft];
+    [cell addGestureRecognizer:swipeRight];
+    [cell addGestureRecognizer:swipeUp];
+    [cell addGestureRecognizer:swipeDown];
+
+    return cell;
+}
+
+#pragma mark - Collection view Delegate
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    cell.tag = indexPath.row+1;
+    ShipComp *nav = arrayComNavios[navioAtual];
+    
+    if ([nav isSubmarino]) {
+        
+    NSMutableArray *campos = [[NSMutableArray alloc]init];
+    campos [0] = @(cell.tag);
+    if ([TestField testeCampoRepetido:campos camposUsados:arrayDeCamposUsados]) {
+        
+        UICollectionViewCell *celula = (UICollectionViewCell*)[self.collectionView viewWithTag:cell.tag];
+
+        [UIView animateWithDuration:0.2 animations:^{
+            
+            celula.backgroundColor = [UIColor greenColor];
+            
+        }];
+        nav.posicoes = campos;
+        [arrayDeCamposUsados addObjectsFromArray:campos];
+        
+        if (navioAtual+1<arrayComNavios.count) {
+            
+            navioAtual++;
+        }
+        else{
+            
+            self.controllerPrinc.navioAtualLabel.hidden = YES;
+            UIAlertView *alerta = [[UIAlertView alloc]initWithTitle:@"Começar jogo" message:@"Campos distríbuidos com sucesso" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Começar", nil];
+            alerta.tag = 2;
+            [alerta show];
+        }
+    }
+    else{
+        
+        [self alertaView:@"Campo já está alocado com outro navio. Tente outro campo."];
+    }
+    [self.controllerPrinc mudarNavioAtual:arrayComNavios[navioAtual]];
+    }
+}
+
+#pragma mark - Metodos
+
+-(void)didSwipe: (UISwipeGestureRecognizer*)sender{
+    
+    ShipComp *nav = arrayComNavios[navioAtual];
+
+    if (![nav isSubmarino]) {
+
+        CGPoint location = [sender locationInView:self.collectionView];
+        NSIndexPath *swipedIndexPath = [self.collectionView indexPathForItemAtPoint:location];
+        UICollectionViewCell *celula;
+        
+        NSMutableArray *campos = [[NSMutableArray alloc]init];
+        int contador = 0;
+
+        switch (sender.direction) {
+            case UISwipeGestureRecognizerDirectionLeft:
+            
+                for (NSInteger i = 1; i<nav.tamanho+1; i++) {
+                    
+                    UICollectionViewCell *celula = (UICollectionViewCell*)[self.collectionView viewWithTag:swipedIndexPath.row - i+2];
+                    campos[i-1] = @(celula.tag);
+                }
+            
+                if (![TestesDeCampos testeCampoHorizontal:campos tamanhoGrid:config.configTamanhoGrid]) {
+                    
+                    NSString* msgAlerta = @"Campo não disponível para seleção. Tente outro campo.";
+                    [self alertaView:msgAlerta];
+                }
+                else if (![TestesDeCampos testeCampoRepetido:campos camposUsados:arrayDeCamposUsados]){
+                    
+                    NSString* msgAlerta = @"Campo já está alocado com outro navio. Tente outro campo.";
+                    [self alertaView:msgAlerta];
+                }
+                else{
+                    
+                    for (NSInteger i = 1; i<nav.tamanho+1; i++) {
+                        
+                        celula = (UICollectionViewCell*)[self.collectionView viewWithTag:swipedIndexPath.row -i+2];
+                        
+                        [UIView animateWithDuration:0.05 delay:(i-1)*0.05 options:0 animations:^{
+                            celula.backgroundColor = [self corDoNavio:nav.tipo];
+                        }completion:nil];
+                        
+                        campos[i-1] = @(celula.tag);
+                    }
+                    nav.posicoes = campos;
+                    [arrayDeCamposUsados addObjectsFromArray:campos];
+                    
+                    navioAtual++;
+                }
+                break;
+                
+            case UISwipeGestureRecognizerDirectionRight:
+                nav = arrayComNavios[navioAtual];
+            
+                for (NSInteger i = 1; i<nav.tamanho+1; i++) {
+                    
+                    UICollectionViewCell *celula = (UICollectionViewCell*)[self.collectionView viewWithTag:swipedIndexPath.row + i];
+                    campos[i-1] = @(celula.tag);
+                }
+            
+                if (![TestesDeCampos testeCampoHorizontal:campos tamanhoGrid:config.configTamanhoGrid]) {
+                    
+                    NSString* msgAlerta = @"Campo não disponível para seleção. Tente outro campo.";
+                    [self alertaView:msgAlerta];
+                }
+                else if (![TestesDeCampos testeCampoRepetido:campos camposUsados:arrayDeCamposUsados]){
+                    
+                    NSString* msgAlerta = @"Campo já está alocado com outro navio. Tente outro campo.";
+                    [self alertaView:msgAlerta];
+                }
+                else{
+                    
+                    for (NSInteger i = 1; i<nav.tamanho+1; i++) {
+                        
+                        celula = (UICollectionViewCell*)[self.collectionView viewWithTag:swipedIndexPath.row +i];
+            
+                        [UIView animateWithDuration:0.05 delay:(i-1)*0.05 options:0 animations:^{
+                            
+                            celula.backgroundColor = [self corDoNavio:nav.tipo];
+                            
+                        }completion:nil];
+                        
+                        campos[i-1] = @(celula.tag);
+                    }
+                    nav.posicoes = campos;
+                    [arrayDeCamposUsados addObjectsFromArray:campos];
+                    navioAtual++;
+                }
+                break;
+                
+            case UISwipeGestureRecognizerDirectionUp:
+                nav = arrayComNavios[navioAtual];
+            
+                for (NSInteger i = 1; i<nav.tamanho+1; i++) {
+                    
+                    UICollectionViewCell *celula = (UICollectionViewCell*)[self.collectionView viewWithTag:swipedIndexPath.row - contador+1];
+                    campos[i-1] = @(celula.tag);
+                    contador+= config.configTamanhoGrid;
+                }
+            
+                if (![TestesDeCampos testeCampoVertical:campos tamanhoGrid:config.configTamanhoGrid]) {
+                    
+                    NSString* msgAlerta = @"Campo não disponível para seleção. Tente outro campo.";
+                    [self alertaView:msgAlerta];
+                }
+                else if (![TestesDeCampos testeCampoRepetido:campos camposUsados:arrayDeCamposUsados]){
+                    
+                    NSString* msgAlerta = @"Campo já está alocado com outro navio. Tente outro campo.";
+                    [self alertaView:msgAlerta];
+                }
+                else{
+                    
+                    contador = 0;
+                    for (NSInteger i = 1; i<nav.tamanho+1; i++) {
+                        
+                        celula = (UICollectionViewCell*)[self.collectionView viewWithTag:swipedIndexPath.row - contador+1];
+
+                        [UIView animateWithDuration:0.05 delay:(i-1)*0.05 options:0 animations:^{
+                            celula.backgroundColor = [self corDoNavio:nav.tipo];
+                        }completion:nil];
+                        
+                        campos[i-1] = @(celula.tag);
+                        contador+=config.configTamanhoGrid;
+                    }
+                    nav.posicoes = campos;
+                    [arrayDeCamposUsados addObjectsFromArray:campos];
+                    navioAtual++;
+                }
+                break;
+                
+            case UISwipeGestureRecognizerDirectionDown:
+                nav = arrayComNavios[navioAtual];
+                for (NSInteger i = 1; i<nav.tamanho+1; i++) {
+                    
+                        celula = (UICollectionViewCell*)[self.collectionView viewWithTag:swipedIndexPath.row + contador+1];
+                        campos[i-1] = @(celula.tag);
+                        contador+=config.configTamanhoGrid;
+                    }
+            
+                if (![TestesDeCampos testeCampoVertical:campos tamanhoGrid:config.configTamanhoGrid]) {
+                    
+                    NSString* msgAlerta = @"Campo não disponível para seleção. Tente outro campo.";
+                    [self alertaView:msgAlerta];
+                }
+                else if (![TestesDeCampos testeCampoRepetido:campos camposUsados:arrayDeCamposUsados]){
+                    
+                    NSString* msgAlerta = @"Campo já está alocado com outro navio. Tente outro campo.";
+                    [self alertaView:msgAlerta];
+                }
+                else{
+                    
+                    contador = 0;
+                    for (NSInteger i = 1; i<nav.tamanho+1; i++) {
+                        
+                        celula = (UICollectionViewCell*)[self.collectionView viewWithTag:swipedIndexPath.row + contador+1];
+                        
+                        [UIView animateWithDuration:0.05 delay:(i-1)*0.05 options:0 animations:^{
+                            celula.backgroundColor = [self corDoNavio:nav.tipo];
+                        } completion:nil];
+                        
+                        campos[i-1] = @(celula.tag);
+                        contador+=config.configTamanhoGrid;
+                    }
+                    nav.posicoes = campos;
+                    [arrayDeCamposUsados addObjectsFromArray:campos];
+                    navioAtual++;
+                }
+                break;
+            }
+        [self.controllerPrinc mudarNavioAtual:arrayComNavios[navioAtual]];
+        }
+}
+
+-(UIColor *)corDoNavio:(NavioTipo)tipo{
+    
+    UIColor *color;
+    
+    switch (tipo) {
+            
+        case PortaAvioes:
+            color = [UIColor colorWithRed:0.6 green:0.5 blue:0.5 alpha:1];
+            break;
+        case Encouracado:
+            color = [UIColor colorWithRed:0 green:0.7 blue:0.3 alpha:1];
+            break;
+        case Cruiser:
+            color = [UIColor colorWithRed:0.7 green:0 blue:0.3 alpha:1];
+            break;
+        case Destroyer:
+            color = [UIColor colorWithRed:0.5 green:0.5 blue:0 alpha:1];
+            break;
+        case Submarino:
+            color = [UIColor colorWithRed:0.3 green:0.5 blue:0.6 alpha:1];
+            break;
+    }
+    
+    return color;
+}
+
+#pragma mark - Alert view
+
+-(void)alertaView:(NSString*)msgAlerta{
+    
+    UIAlertView *alerta = [[UIAlertView alloc]initWithTitle:@"Erro" message:msgAlerta delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+    
+    [alerta show];
+}
+
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    if (alertView.tag == 2) {
+        
+        [self.controllerPrinc comecarBatalhaComNavios:arrayComNavios];
+    }
+}
+
+@end

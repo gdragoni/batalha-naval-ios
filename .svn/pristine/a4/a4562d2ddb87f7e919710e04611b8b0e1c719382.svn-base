@@ -1,0 +1,1511 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5D07AAD61CCFE41300AEA6DF /* ChamadasRestKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D07AAD51CCFE41300AEA6DF /* ChamadasRestKitTests.m */; };
+		5D09FD6B1C3EA15000BE521F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D09FD6A1C3EA15000BE521F /* CoreData.framework */; };
+		5D0B97F01C33FA22008564B0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D0B97EF1C33FA22008564B0 /* main.m */; };
+		5D0B97F31C33FA22008564B0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D0B97F21C33FA22008564B0 /* AppDelegate.m */; };
+		5D0B97F91C33FA22008564B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D0B97F71C33FA22008564B0 /* Main.storyboard */; };
+		5D0B97FB1C33FA22008564B0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D0B97FA1C33FA22008564B0 /* Images.xcassets */; };
+		5D0B97FE1C33FA22008564B0 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D0B97FC1C33FA22008564B0 /* LaunchScreen.xib */; };
+		5D0B980A1C33FA22008564B0 /* Batalha_NavalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D0B98091C33FA22008564B0 /* Batalha_NavalTests.m */; };
+		5D0C3B5A1C6B9E980067461E /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D0C3B591C6B9E980067461E /* libRestKit.a */; };
+		5D68D8111C65037A002BDB29 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D68D8101C65037A002BDB29 /* CFNetwork.framework */; };
+		5D68D8131C6503A0002BDB29 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D68D8121C6503A0002BDB29 /* MobileCoreServices.framework */; };
+		5D68D8151C6503AE002BDB29 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D68D8141C6503AE002BDB29 /* Security.framework */; };
+		5D68D8171C6503BE002BDB29 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D68D8161C6503BE002BDB29 /* SystemConfiguration.framework */; };
+		5DA20CDC1C50FF8A00CCD356 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DA20CDB1C50FF8A00CCD356 /* QuartzCore.framework */; };
+		5DAA6BDC1CECC61200CF2483 /* GameComp.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6BDB1CECC61200CF2483 /* GameComp.m */; };
+		5DAA6BE01CECC7DF00CF2483 /* PlayerComp.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6BDF1CECC7DF00CF2483 /* PlayerComp.m */; };
+		5DAA6BE31CECC7FA00CF2483 /* ShipComp.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6BE21CECC7FA00CF2483 /* ShipComp.m */; };
+		5DAA6BE61CECC80500CF2483 /* ShotComp.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6BE51CECC80500CF2483 /* ShotComp.m */; };
+		5DAA6BEA1CECC83000CF2483 /* ConfigurationComp.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6BE91CECC83000CF2483 /* ConfigurationComp.m */; };
+		5DAA6BFA1CECC98500CF2483 /* Fire.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6BF31CECC98500CF2483 /* Fire.m */; };
+		5DAA6BFB1CECC98500CF2483 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6BF41CECC98500CF2483 /* Game.m */; };
+		5DAA6BFC1CECC98500CF2483 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6BF51CECC98500CF2483 /* Player.m */; };
+		5DAA6BFD1CECC98500CF2483 /* PlayerField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6BF61CECC98500CF2483 /* PlayerField.m */; };
+		5DAA6BFE1CECC98500CF2483 /* Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6BF71CECC98500CF2483 /* Position.m */; };
+		5DAA6BFF1CECC98500CF2483 /* Ship.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6BF81CECC98500CF2483 /* Ship.m */; };
+		5DAA6C001CECC98500CF2483 /* Shot.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6BF91CECC98500CF2483 /* Shot.m */; };
+		5DAA6C091CECCA5200CF2483 /* CreatePlayer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C011CECCA5200CF2483 /* CreatePlayer.xib */; };
+		5DAA6C0A1CECCA5200CF2483 /* PlayerList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C021CECCA5200CF2483 /* PlayerList.xib */; };
+		5DAA6C0B1CECCA5200CF2483 /* ShipDistributor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C031CECCA5200CF2483 /* ShipDistributor.xib */; };
+		5DAA6C0C1CECCA5200CF2483 /* GameDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C041CECCA5200CF2483 /* GameDetail.xib */; };
+		5DAA6C0D1CECCA5200CF2483 /* ShipCompDistributor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C051CECCA5200CF2483 /* ShipCompDistributor.xib */; };
+		5DAA6C0E1CECCA5200CF2483 /* SinkShips.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C061CECCA5200CF2483 /* SinkShips.xib */; };
+		5DAA6C0F1CECCA5200CF2483 /* BatalhaOffline.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C071CECCA5200CF2483 /* BatalhaOffline.xib */; };
+		5DAA6C101CECCA5200CF2483 /* BatalhaOnline.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C081CECCA5200CF2483 /* BatalhaOnline.xib */; };
+		5DAA6C131CECCC1200CF2483 /* FirstScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C121CECCC1200CF2483 /* FirstScene.m */; };
+		5DAA6C161CECCC1C00CF2483 /* ActiveGames.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C151CECCC1C00CF2483 /* ActiveGames.m */; };
+		5DAA6C191CECCC4900CF2483 /* RankingBestTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C181CECCC4900CF2483 /* RankingBestTime.m */; };
+		5DAA6C1C1CECCD0E00CF2483 /* AfundarNavios.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C1B1CECCD0E00CF2483 /* AfundarNavios.m */; };
+		5DAA6C1F1CECCD2D00CF2483 /* SinkShips.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C1E1CECCD2D00CF2483 /* SinkShips.m */; };
+		5DAA6C3E1CECCD7F00CF2483 /* BatalhaOffline.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C201CECCD7F00CF2483 /* BatalhaOffline.m */; };
+		5DAA6C3F1CECCD7F00CF2483 /* BatalhaOnline.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C211CECCD7F00CF2483 /* BatalhaOnline.m */; };
+		5DAA6C421CECCD7F00CF2483 /* CreateGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C281CECCD7F00CF2483 /* CreateGame.m */; };
+		5DAA6C431CECCD7F00CF2483 /* CreatePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C2A1CECCD7F00CF2483 /* CreatePlayer.m */; };
+		5DAA6C441CECCD7F00CF2483 /* PlayerList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C2E1CECCD7F00CF2483 /* PlayerList.m */; };
+		5DAA6C451CECCD7F00CF2483 /* BatalhaVsJogador.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C311CECCD7F00CF2483 /* BatalhaVsJogador.m */; };
+		5DAA6C461CECCD7F00CF2483 /* ConfiguracoesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C331CECCD7F00CF2483 /* ConfiguracoesController.m */; };
+		5DAA6C471CECCD7F00CF2483 /* GameDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C351CECCD7F00CF2483 /* GameDetail.m */; };
+		5DAA6C481CECCD7F00CF2483 /* GameHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C361CECCD7F00CF2483 /* GameHistory.m */; };
+		5DAA6C491CECCD7F00CF2483 /* PlayerCompList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C371CECCD7F00CF2483 /* PlayerCompList.m */; };
+		5DAA6C4A1CECCD7F00CF2483 /* PlayerInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C391CECCD7F00CF2483 /* PlayerInformation.m */; };
+		5DAA6C4B1CECCD7F00CF2483 /* ShipDistributor.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C3B1CECCD7F00CF2483 /* ShipDistributor.m */; };
+		5DAA6C4C1CECCD7F00CF2483 /* ShipCompDistributor.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C3D1CECCD7F00CF2483 /* ShipCompDistributor.m */; };
+		5DAA6C4F1CECCEBD00CF2483 /* BatalhaVsComputador.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C4E1CECCEBD00CF2483 /* BatalhaVsComputador.m */; };
+		5DAA6C651CECD0A300CF2483 /* ImageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C511CECD0A300CF2483 /* ImageUtil.m */; };
+		5DAA6C661CECD0A300CF2483 /* TestField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C531CECD0A300CF2483 /* TestField.m */; };
+		5DAA6C671CECD0A300CF2483 /* Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C551CECD0A300CF2483 /* Alert.m */; };
+		5DAA6C681CECD0A300CF2483 /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C571CECD0A300CF2483 /* LoadingView.m */; };
+		5DAA6C691CECD0A300CF2483 /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C581CECD0A300CF2483 /* LoadingView.xib */; };
+		5DAA6C6A1CECD0A300CF2483 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C5A1CECD0A300CF2483 /* Reachability.m */; };
+		5DAA6C6B1CECD0A300CF2483 /* Sound.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C5C1CECD0A300CF2483 /* Sound.m */; };
+		5DAA6C6C1CECD0A300CF2483 /* ValidatePlayerName.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C5E1CECD0A300CF2483 /* ValidatePlayerName.m */; };
+		5DAA6C6D1CECD0A300CF2483 /* DateUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C601CECD0A300CF2483 /* DateUtil.m */; };
+		5DAA6C6E1CECD0A300CF2483 /* RKUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C621CECD0A300CF2483 /* RKUtil.m */; };
+		5DAA6C6F1CECD0A300CF2483 /* ShipGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C641CECD0A300CF2483 /* ShipGenerator.m */; };
+		5DAA6C731CECD14D00CF2483 /* WebService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6C721CECD14D00CF2483 /* WebService.m */; };
+		5DAA6C8C1CECD1B200CF2483 /* atrasNavio.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C741CECD1B200CF2483 /* atrasNavio.png */; };
+		5DAA6C8D1CECD1B200CF2483 /* bombaLancada.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C751CECD1B200CF2483 /* bombaLancada.wav */; };
+		5DAA6C8E1CECD1B200CF2483 /* frenteNavio.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C761CECD1B200CF2483 /* frenteNavio.png */; };
+		5DAA6C8F1CECD1B200CF2483 /* Icon-settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C771CECD1B200CF2483 /* Icon-settings.png */; };
+		5DAA6C901CECD1B200CF2483 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C781CECD1B200CF2483 /* Icon.png */; };
+		5DAA6C911CECD1B200CF2483 /* meioNavio.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C791CECD1B200CF2483 /* meioNavio.png */; };
+		5DAA6C921CECD1B200CF2483 /* oldSonar.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C7A1CECD1B200CF2483 /* oldSonar.wav */; };
+		5DAA6C931CECD1B200CF2483 /* sadTrambone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C7B1CECD1B200CF2483 /* sadTrambone.wav */; };
+		5DAA6C941CECD1B200CF2483 /* shipBell.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C7C1CECD1B200CF2483 /* shipBell.wav */; };
+		5DAA6C951CECD1B200CF2483 /* splash.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C7D1CECD1B200CF2483 /* splash.wav */; };
+		5DAA6C961CECD1B200CF2483 /* submarino.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C7E1CECD1B200CF2483 /* submarino.png */; };
+		5DAA6C971CECD1B200CF2483 /* TaDa.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C7F1CECD1B200CF2483 /* TaDa.wav */; };
+		5DAA6C981CECD1B200CF2483 /* temaInicio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C801CECD1B200CF2483 /* temaInicio.mp3 */; };
+		5DAA6C991CECD1B200CF2483 /* detailImageOnline.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C811CECD1B200CF2483 /* detailImageOnline.jpg */; };
+		5DAA6C9A1CECD1B200CF2483 /* medals.gif in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C821CECD1B200CF2483 /* medals.gif */; };
+		5DAA6C9B1CECD1B200CF2483 /* soundTemaOnline.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C831CECD1B200CF2483 /* soundTemaOnline.mp3 */; };
+		5DAA6C9C1CECD1B200CF2483 /* wallpaper_world_of_warships_04_1920x1080-1024x576.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C841CECD1B200CF2483 /* wallpaper_world_of_warships_04_1920x1080-1024x576.jpg */; };
+		5DAA6C9D1CECD1B200CF2483 /* Botoes_5112_user_48.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C851CECD1B200CF2483 /* Botoes_5112_user_48.png */; };
+		5DAA6C9E1CECD1B200CF2483 /* Botoes_5113_add_48.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C861CECD1B200CF2483 /* Botoes_5113_add_48.png */; };
+		5DAA6C9F1CECD1B200CF2483 /* 96533_Papel-de-Parede-Aeronautica-e-Marinha--96533_1680x1050.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C871CECD1B200CF2483 /* 96533_Papel-de-Parede-Aeronautica-e-Marinha--96533_1680x1050.jpg */; };
+		5DAA6CA01CECD1B200CF2483 /* battleship-4f70d345e53fc.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C881CECD1B200CF2483 /* battleship-4f70d345e53fc.png */; };
+		5DAA6CA11CECD1B200CF2483 /* explosion-153710_640.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C891CECD1B200CF2483 /* explosion-153710_640.png */; };
+		5DAA6CA21CECD1B200CF2483 /* 2398_world_of_warships_banner3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C8A1CECD1B200CF2483 /* 2398_world_of_warships_banner3.jpg */; };
+		5DAA6CA31CECD1B200CF2483 /* batalhaNaval.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 5DAA6C8B1CECD1B200CF2483 /* batalhaNaval.jpeg */; };
+		5DAA6CA81CECD25500CF2483 /* UserDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6CA51CECD25500CF2483 /* UserDefault.m */; };
+		5DAA6CA91CECD25500CF2483 /* PlayerCompDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6CA71CECD25500CF2483 /* PlayerCompDAO.m */; };
+		5DAA6CAC1CECD26F00CF2483 /* DataBase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA6CAA1CECD26F00CF2483 /* DataBase.xcdatamodeld */; };
+		5DC3B5781C5142C700A0A54B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DC3B5771C5142C700A0A54B /* AVFoundation.framework */; };
+		B9BC42D6809FCCD693E68C78 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C8E4737FCD3FDEED9CD2F2C /* libPods.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5D0B98041C33FA22008564B0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5D0B97E21C33FA22008564B0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5D0B97E91C33FA22008564B0;
+			remoteInfo = "Batalha Naval";
+		};
+		5D9E7E0D1CA0654B00800DA6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5D9E7E031CA0654B00800DA6 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6CE9AF3316F2CA9DFAA6CBDECEDDBBCC;
+			remoteInfo = AFNetworking;
+		};
+		5D9E7E0F1CA0654B00800DA6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5D9E7E031CA0654B00800DA6 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 262176E645D12C83C6178FD9D2394C73;
+			remoteInfo = ISO8601DateFormatterValueTransformer;
+		};
+		5D9E7E111CA0654B00800DA6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5D9E7E031CA0654B00800DA6 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F7B469573EEE91617DA677E46F125951;
+			remoteInfo = Pods;
+		};
+		5D9E7E131CA0654B00800DA6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5D9E7E031CA0654B00800DA6 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D0AFDE5B6C5DB35340D5898F9B4CFB67;
+			remoteInfo = RestKit;
+		};
+		5D9E7E151CA0654B00800DA6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5D9E7E031CA0654B00800DA6 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 101548054F6CA0402D42361F2FF0423E;
+			remoteInfo = RKValueTransformers;
+		};
+		5D9E7E171CA0654B00800DA6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5D9E7E031CA0654B00800DA6 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 66878878402184D207467F1C09D5E45B;
+			remoteInfo = SOCKit;
+		};
+		5D9E7E191CA0654B00800DA6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5D9E7E031CA0654B00800DA6 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 773FC9A38F680E112D113EF90F762040;
+			remoteInfo = TransitionKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4C8E4737FCD3FDEED9CD2F2C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D07AAD51CCFE41300AEA6DF /* ChamadasRestKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChamadasRestKitTests.m; sourceTree = "<group>"; };
+		5D09FD6A1C3EA15000BE521F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		5D0B97EA1C33FA22008564B0 /* Batalha Naval.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Batalha Naval.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D0B97EE1C33FA22008564B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5D0B97EF1C33FA22008564B0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		5D0B97F11C33FA22008564B0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		5D0B97F21C33FA22008564B0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		5D0B97F81C33FA22008564B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5D0B97FA1C33FA22008564B0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		5D0B97FD1C33FA22008564B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		5D0B98031C33FA22008564B0 /* Batalha NavalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Batalha NavalTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D0B98091C33FA22008564B0 /* Batalha_NavalTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Batalha_NavalTests.m; sourceTree = "<group>"; };
+		5D0C3B4B1C6B95A30067461E /* libRestKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRestKit.a; path = "Pods/../build/Debug-iphoneos/libRestKit.a"; sourceTree = "<group>"; };
+		5D0C3B591C6B9E980067461E /* libRestKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRestKit.a; path = "Pods/../build/Debug-iphoneos/libRestKit.a"; sourceTree = "<group>"; };
+		5D68D8101C65037A002BDB29 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		5D68D8121C6503A0002BDB29 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		5D68D8141C6503AE002BDB29 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		5D68D8161C6503BE002BDB29 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		5D9E7E031CA0654B00800DA6 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
+		5DA20CDB1C50FF8A00CCD356 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		5DAA6BDA1CECC61200CF2483 /* GameComp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameComp.h; path = Models/GameComp.h; sourceTree = "<group>"; };
+		5DAA6BDB1CECC61200CF2483 /* GameComp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameComp.m; path = Models/GameComp.m; sourceTree = "<group>"; };
+		5DAA6BDE1CECC7DF00CF2483 /* PlayerComp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayerComp.h; path = Models/PlayerComp.h; sourceTree = "<group>"; };
+		5DAA6BDF1CECC7DF00CF2483 /* PlayerComp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayerComp.m; path = Models/PlayerComp.m; sourceTree = "<group>"; };
+		5DAA6BE11CECC7FA00CF2483 /* ShipComp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShipComp.h; path = Models/ShipComp.h; sourceTree = "<group>"; };
+		5DAA6BE21CECC7FA00CF2483 /* ShipComp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShipComp.m; path = Models/ShipComp.m; sourceTree = "<group>"; };
+		5DAA6BE41CECC80500CF2483 /* ShotComp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShotComp.h; path = Models/ShotComp.h; sourceTree = "<group>"; };
+		5DAA6BE51CECC80500CF2483 /* ShotComp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShotComp.m; path = Models/ShotComp.m; sourceTree = "<group>"; };
+		5DAA6BE71CECC80C00CF2483 /* ModelosOffline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModelosOffline.h; path = Models/ModelosOffline.h; sourceTree = "<group>"; };
+		5DAA6BE81CECC83000CF2483 /* ConfigurationComp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConfigurationComp.h; path = Models/ConfigurationComp.h; sourceTree = "<group>"; };
+		5DAA6BE91CECC83000CF2483 /* ConfigurationComp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConfigurationComp.m; path = Models/ConfigurationComp.m; sourceTree = "<group>"; };
+		5DAA6BEB1CECC98500CF2483 /* Fire.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Fire.h; path = Models/Fire.h; sourceTree = "<group>"; };
+		5DAA6BEC1CECC98500CF2483 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Game.h; path = Models/Game.h; sourceTree = "<group>"; };
+		5DAA6BED1CECC98500CF2483 /* ModelosOnline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModelosOnline.h; path = Models/ModelosOnline.h; sourceTree = "<group>"; };
+		5DAA6BEE1CECC98500CF2483 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Player.h; path = Models/Player.h; sourceTree = "<group>"; };
+		5DAA6BEF1CECC98500CF2483 /* PlayerField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayerField.h; path = Models/PlayerField.h; sourceTree = "<group>"; };
+		5DAA6BF01CECC98500CF2483 /* Position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Position.h; path = Models/Position.h; sourceTree = "<group>"; };
+		5DAA6BF11CECC98500CF2483 /* Ship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Ship.h; path = Models/Ship.h; sourceTree = "<group>"; };
+		5DAA6BF21CECC98500CF2483 /* Shot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Shot.h; path = Models/Shot.h; sourceTree = "<group>"; };
+		5DAA6BF31CECC98500CF2483 /* Fire.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Fire.m; path = Models/Fire.m; sourceTree = "<group>"; };
+		5DAA6BF41CECC98500CF2483 /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Game.m; path = Models/Game.m; sourceTree = "<group>"; };
+		5DAA6BF51CECC98500CF2483 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Player.m; path = Models/Player.m; sourceTree = "<group>"; };
+		5DAA6BF61CECC98500CF2483 /* PlayerField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayerField.m; path = Models/PlayerField.m; sourceTree = "<group>"; };
+		5DAA6BF71CECC98500CF2483 /* Position.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Position.m; path = Models/Position.m; sourceTree = "<group>"; };
+		5DAA6BF81CECC98500CF2483 /* Ship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Ship.m; path = Models/Ship.m; sourceTree = "<group>"; };
+		5DAA6BF91CECC98500CF2483 /* Shot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Shot.m; path = Models/Shot.m; sourceTree = "<group>"; };
+		5DAA6C011CECCA5200CF2483 /* CreatePlayer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CreatePlayer.xib; path = "Batalha Naval/Views/CreatePlayer.xib"; sourceTree = "<group>"; };
+		5DAA6C021CECCA5200CF2483 /* PlayerList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PlayerList.xib; path = "Batalha Naval/Views/PlayerList.xib"; sourceTree = "<group>"; };
+		5DAA6C031CECCA5200CF2483 /* ShipDistributor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShipDistributor.xib; path = "Batalha Naval/Views/ShipDistributor.xib"; sourceTree = "<group>"; };
+		5DAA6C041CECCA5200CF2483 /* GameDetail.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GameDetail.xib; path = "Batalha Naval/Views/GameDetail.xib"; sourceTree = "<group>"; };
+		5DAA6C051CECCA5200CF2483 /* ShipCompDistributor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShipCompDistributor.xib; path = "Batalha Naval/Views/ShipCompDistributor.xib"; sourceTree = "<group>"; };
+		5DAA6C061CECCA5200CF2483 /* SinkShips.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SinkShips.xib; path = "Batalha Naval/Views/SinkShips.xib"; sourceTree = "<group>"; };
+		5DAA6C071CECCA5200CF2483 /* BatalhaOffline.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BatalhaOffline.xib; path = "Batalha Naval/Views/BatalhaOffline.xib"; sourceTree = "<group>"; };
+		5DAA6C081CECCA5200CF2483 /* BatalhaOnline.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BatalhaOnline.xib; path = "Batalha Naval/Views/BatalhaOnline.xib"; sourceTree = "<group>"; };
+		5DAA6C111CECCC1200CF2483 /* FirstScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FirstScene.h; path = Controllers/FirstScene.h; sourceTree = "<group>"; };
+		5DAA6C121CECCC1200CF2483 /* FirstScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FirstScene.m; path = Controllers/FirstScene.m; sourceTree = "<group>"; };
+		5DAA6C141CECCC1C00CF2483 /* ActiveGames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ActiveGames.h; path = Controllers/ActiveGames.h; sourceTree = "<group>"; };
+		5DAA6C151CECCC1C00CF2483 /* ActiveGames.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ActiveGames.m; path = Controllers/ActiveGames.m; sourceTree = "<group>"; };
+		5DAA6C171CECCC4900CF2483 /* RankingBestTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RankingBestTime.h; path = Controllers/RankingBestTime.h; sourceTree = "<group>"; };
+		5DAA6C181CECCC4900CF2483 /* RankingBestTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RankingBestTime.m; path = Controllers/RankingBestTime.m; sourceTree = "<group>"; };
+		5DAA6C1A1CECCD0E00CF2483 /* AfundarNavios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AfundarNavios.h; path = "Batalha Naval/Controllers/AfundarNavios.h"; sourceTree = "<group>"; };
+		5DAA6C1B1CECCD0E00CF2483 /* AfundarNavios.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AfundarNavios.m; path = "Batalha Naval/Controllers/AfundarNavios.m"; sourceTree = "<group>"; };
+		5DAA6C1D1CECCD2D00CF2483 /* SinkShips.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SinkShips.h; path = Controllers/SinkShips.h; sourceTree = "<group>"; };
+		5DAA6C1E1CECCD2D00CF2483 /* SinkShips.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SinkShips.m; path = Controllers/SinkShips.m; sourceTree = "<group>"; };
+		5DAA6C201CECCD7F00CF2483 /* BatalhaOffline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BatalhaOffline.m; path = Controllers/BatalhaOffline.m; sourceTree = "<group>"; };
+		5DAA6C211CECCD7F00CF2483 /* BatalhaOnline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BatalhaOnline.m; path = Controllers/BatalhaOnline.m; sourceTree = "<group>"; };
+		5DAA6C241CECCD7F00CF2483 /* BatalhaOnline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BatalhaOnline.h; path = Controllers/BatalhaOnline.h; sourceTree = "<group>"; };
+		5DAA6C271CECCD7F00CF2483 /* CreateGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreateGame.h; path = Controllers/CreateGame.h; sourceTree = "<group>"; };
+		5DAA6C281CECCD7F00CF2483 /* CreateGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreateGame.m; path = Controllers/CreateGame.m; sourceTree = "<group>"; };
+		5DAA6C291CECCD7F00CF2483 /* CreatePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreatePlayer.h; path = Controllers/CreatePlayer.h; sourceTree = "<group>"; };
+		5DAA6C2A1CECCD7F00CF2483 /* CreatePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreatePlayer.m; path = Controllers/CreatePlayer.m; sourceTree = "<group>"; };
+		5DAA6C2B1CECCD7F00CF2483 /* GameHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameHistory.h; path = Controllers/GameHistory.h; sourceTree = "<group>"; };
+		5DAA6C2C1CECCD7F00CF2483 /* PlayerCompList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayerCompList.h; path = Controllers/PlayerCompList.h; sourceTree = "<group>"; };
+		5DAA6C2D1CECCD7F00CF2483 /* PlayerList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayerList.h; path = Controllers/PlayerList.h; sourceTree = "<group>"; };
+		5DAA6C2E1CECCD7F00CF2483 /* PlayerList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayerList.m; path = Controllers/PlayerList.m; sourceTree = "<group>"; };
+		5DAA6C2F1CECCD7F00CF2483 /* ShipDistributor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShipDistributor.h; path = Controllers/ShipDistributor.h; sourceTree = "<group>"; };
+		5DAA6C301CECCD7F00CF2483 /* BatalhaVsJogador.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BatalhaVsJogador.h; path = Controllers/BatalhaVsJogador.h; sourceTree = "<group>"; };
+		5DAA6C311CECCD7F00CF2483 /* BatalhaVsJogador.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BatalhaVsJogador.m; path = Controllers/BatalhaVsJogador.m; sourceTree = "<group>"; };
+		5DAA6C321CECCD7F00CF2483 /* ConfiguracoesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConfiguracoesController.h; path = Controllers/ConfiguracoesController.h; sourceTree = "<group>"; };
+		5DAA6C331CECCD7F00CF2483 /* ConfiguracoesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConfiguracoesController.m; path = Controllers/ConfiguracoesController.m; sourceTree = "<group>"; };
+		5DAA6C341CECCD7F00CF2483 /* GameDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameDetail.h; path = Controllers/GameDetail.h; sourceTree = "<group>"; };
+		5DAA6C351CECCD7F00CF2483 /* GameDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameDetail.m; path = Controllers/GameDetail.m; sourceTree = "<group>"; };
+		5DAA6C361CECCD7F00CF2483 /* GameHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameHistory.m; path = Controllers/GameHistory.m; sourceTree = "<group>"; };
+		5DAA6C371CECCD7F00CF2483 /* PlayerCompList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayerCompList.m; path = Controllers/PlayerCompList.m; sourceTree = "<group>"; };
+		5DAA6C381CECCD7F00CF2483 /* PlayerInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayerInformation.h; path = Controllers/PlayerInformation.h; sourceTree = "<group>"; };
+		5DAA6C391CECCD7F00CF2483 /* PlayerInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayerInformation.m; path = Controllers/PlayerInformation.m; sourceTree = "<group>"; };
+		5DAA6C3A1CECCD7F00CF2483 /* ShipCompDistributor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShipCompDistributor.h; path = Controllers/ShipCompDistributor.h; sourceTree = "<group>"; };
+		5DAA6C3B1CECCD7F00CF2483 /* ShipDistributor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShipDistributor.m; path = Controllers/ShipDistributor.m; sourceTree = "<group>"; };
+		5DAA6C3C1CECCD7F00CF2483 /* BatalhaOffline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BatalhaOffline.h; path = Controllers/BatalhaOffline.h; sourceTree = "<group>"; };
+		5DAA6C3D1CECCD7F00CF2483 /* ShipCompDistributor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShipCompDistributor.m; path = Controllers/ShipCompDistributor.m; sourceTree = "<group>"; };
+		5DAA6C4D1CECCEBD00CF2483 /* BatalhaVsComputador.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BatalhaVsComputador.h; path = "Batalha Naval/Controllers/BatalhaVsComputador.h"; sourceTree = "<group>"; };
+		5DAA6C4E1CECCEBD00CF2483 /* BatalhaVsComputador.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BatalhaVsComputador.m; path = "Batalha Naval/Controllers/BatalhaVsComputador.m"; sourceTree = "<group>"; };
+		5DAA6C501CECD0A300CF2483 /* ImageUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageUtil.h; path = "Batalha Naval/Utils/ImageUtil.h"; sourceTree = "<group>"; };
+		5DAA6C511CECD0A300CF2483 /* ImageUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageUtil.m; path = "Batalha Naval/Utils/ImageUtil.m"; sourceTree = "<group>"; };
+		5DAA6C521CECD0A300CF2483 /* TestField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestField.h; path = "Batalha Naval/Utils/TestField.h"; sourceTree = "<group>"; };
+		5DAA6C531CECD0A300CF2483 /* TestField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestField.m; path = "Batalha Naval/Utils/TestField.m"; sourceTree = "<group>"; };
+		5DAA6C541CECD0A300CF2483 /* Alert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Alert.h; path = "Batalha Naval/Utils/Alert.h"; sourceTree = "<group>"; };
+		5DAA6C551CECD0A300CF2483 /* Alert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Alert.m; path = "Batalha Naval/Utils/Alert.m"; sourceTree = "<group>"; };
+		5DAA6C561CECD0A300CF2483 /* LoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoadingView.h; path = Utils/LoadingView.h; sourceTree = "<group>"; };
+		5DAA6C571CECD0A300CF2483 /* LoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoadingView.m; path = Utils/LoadingView.m; sourceTree = "<group>"; };
+		5DAA6C581CECD0A300CF2483 /* LoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoadingView.xib; path = Utils/LoadingView.xib; sourceTree = "<group>"; };
+		5DAA6C591CECD0A300CF2483 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Utils/Reachability.h; sourceTree = "<group>"; };
+		5DAA6C5A1CECD0A300CF2483 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Utils/Reachability.m; sourceTree = "<group>"; };
+		5DAA6C5B1CECD0A300CF2483 /* Sound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Sound.h; path = Utils/Sound.h; sourceTree = "<group>"; };
+		5DAA6C5C1CECD0A300CF2483 /* Sound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Sound.m; path = Utils/Sound.m; sourceTree = "<group>"; };
+		5DAA6C5D1CECD0A300CF2483 /* ValidatePlayerName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ValidatePlayerName.h; path = Utils/ValidatePlayerName.h; sourceTree = "<group>"; };
+		5DAA6C5E1CECD0A300CF2483 /* ValidatePlayerName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ValidatePlayerName.m; path = Utils/ValidatePlayerName.m; sourceTree = "<group>"; };
+		5DAA6C5F1CECD0A300CF2483 /* DateUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateUtil.h; path = "Batalha Naval/Utils/DateUtil.h"; sourceTree = "<group>"; };
+		5DAA6C601CECD0A300CF2483 /* DateUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateUtil.m; path = "Batalha Naval/Utils/DateUtil.m"; sourceTree = "<group>"; };
+		5DAA6C611CECD0A300CF2483 /* RKUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RKUtil.h; path = Utils/RKUtil.h; sourceTree = "<group>"; };
+		5DAA6C621CECD0A300CF2483 /* RKUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RKUtil.m; path = Utils/RKUtil.m; sourceTree = "<group>"; };
+		5DAA6C631CECD0A300CF2483 /* ShipGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShipGenerator.h; path = Utils/ShipGenerator.h; sourceTree = "<group>"; };
+		5DAA6C641CECD0A300CF2483 /* ShipGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShipGenerator.m; path = Utils/ShipGenerator.m; sourceTree = "<group>"; };
+		5DAA6C701CECD14D00CF2483 /* RestKitCallBack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestKitCallBack.h; path = WS/RestKitCallBack.h; sourceTree = "<group>"; };
+		5DAA6C711CECD14D00CF2483 /* WebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebService.h; path = WS/WebService.h; sourceTree = "<group>"; };
+		5DAA6C721CECD14D00CF2483 /* WebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebService.m; path = WS/WebService.m; sourceTree = "<group>"; };
+		5DAA6C741CECD1B200CF2483 /* atrasNavio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = atrasNavio.png; path = "Batalha Naval/Arquivos/atrasNavio.png"; sourceTree = "<group>"; };
+		5DAA6C751CECD1B200CF2483 /* bombaLancada.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = bombaLancada.wav; path = "Batalha Naval/Arquivos/bombaLancada.wav"; sourceTree = "<group>"; };
+		5DAA6C761CECD1B200CF2483 /* frenteNavio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = frenteNavio.png; path = "Batalha Naval/Arquivos/frenteNavio.png"; sourceTree = "<group>"; };
+		5DAA6C771CECD1B200CF2483 /* Icon-settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-settings.png"; path = "Batalha Naval/Arquivos/Icon-settings.png"; sourceTree = "<group>"; };
+		5DAA6C781CECD1B200CF2483 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = "Batalha Naval/Arquivos/Icon.png"; sourceTree = "<group>"; };
+		5DAA6C791CECD1B200CF2483 /* meioNavio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = meioNavio.png; path = "Batalha Naval/Arquivos/meioNavio.png"; sourceTree = "<group>"; };
+		5DAA6C7A1CECD1B200CF2483 /* oldSonar.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = oldSonar.wav; path = "Batalha Naval/Arquivos/oldSonar.wav"; sourceTree = "<group>"; };
+		5DAA6C7B1CECD1B200CF2483 /* sadTrambone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sadTrambone.wav; path = "Batalha Naval/Arquivos/sadTrambone.wav"; sourceTree = "<group>"; };
+		5DAA6C7C1CECD1B200CF2483 /* shipBell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = shipBell.wav; path = "Batalha Naval/Arquivos/shipBell.wav"; sourceTree = "<group>"; };
+		5DAA6C7D1CECD1B200CF2483 /* splash.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = splash.wav; path = "Batalha Naval/Arquivos/splash.wav"; sourceTree = "<group>"; };
+		5DAA6C7E1CECD1B200CF2483 /* submarino.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = submarino.png; path = "Batalha Naval/Arquivos/submarino.png"; sourceTree = "<group>"; };
+		5DAA6C7F1CECD1B200CF2483 /* TaDa.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = TaDa.wav; path = "Batalha Naval/Arquivos/TaDa.wav"; sourceTree = "<group>"; };
+		5DAA6C801CECD1B200CF2483 /* temaInicio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = temaInicio.mp3; path = "Batalha Naval/Arquivos/temaInicio.mp3"; sourceTree = "<group>"; };
+		5DAA6C811CECD1B200CF2483 /* detailImageOnline.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = detailImageOnline.jpg; path = "Batalha Naval/Arquivos/detailImageOnline.jpg"; sourceTree = "<group>"; };
+		5DAA6C821CECD1B200CF2483 /* medals.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = medals.gif; path = "Batalha Naval/Arquivos/medals.gif"; sourceTree = "<group>"; };
+		5DAA6C831CECD1B200CF2483 /* soundTemaOnline.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = soundTemaOnline.mp3; path = "Batalha Naval/Arquivos/soundTemaOnline.mp3"; sourceTree = "<group>"; };
+		5DAA6C841CECD1B200CF2483 /* wallpaper_world_of_warships_04_1920x1080-1024x576.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "wallpaper_world_of_warships_04_1920x1080-1024x576.jpg"; path = "Batalha Naval/Arquivos/wallpaper_world_of_warships_04_1920x1080-1024x576.jpg"; sourceTree = "<group>"; };
+		5DAA6C851CECD1B200CF2483 /* Botoes_5112_user_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Botoes_5112_user_48.png; path = "Batalha Naval/Arquivos/Botoes_5112_user_48.png"; sourceTree = "<group>"; };
+		5DAA6C861CECD1B200CF2483 /* Botoes_5113_add_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Botoes_5113_add_48.png; path = "Batalha Naval/Arquivos/Botoes_5113_add_48.png"; sourceTree = "<group>"; };
+		5DAA6C871CECD1B200CF2483 /* 96533_Papel-de-Parede-Aeronautica-e-Marinha--96533_1680x1050.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "96533_Papel-de-Parede-Aeronautica-e-Marinha--96533_1680x1050.jpg"; path = "Batalha Naval/Arquivos/96533_Papel-de-Parede-Aeronautica-e-Marinha--96533_1680x1050.jpg"; sourceTree = "<group>"; };
+		5DAA6C881CECD1B200CF2483 /* battleship-4f70d345e53fc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "battleship-4f70d345e53fc.png"; path = "Batalha Naval/Arquivos/battleship-4f70d345e53fc.png"; sourceTree = "<group>"; };
+		5DAA6C891CECD1B200CF2483 /* explosion-153710_640.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "explosion-153710_640.png"; path = "Batalha Naval/Arquivos/explosion-153710_640.png"; sourceTree = "<group>"; };
+		5DAA6C8A1CECD1B200CF2483 /* 2398_world_of_warships_banner3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 2398_world_of_warships_banner3.jpg; path = "Batalha Naval/Arquivos/2398_world_of_warships_banner3.jpg"; sourceTree = "<group>"; };
+		5DAA6C8B1CECD1B200CF2483 /* batalhaNaval.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = batalhaNaval.jpeg; path = "Batalha Naval/Arquivos/batalhaNaval.jpeg"; sourceTree = "<group>"; };
+		5DAA6CA41CECD25500CF2483 /* UserDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserDefault.h; path = "Batalha Naval/DataBase/UserDefault.h"; sourceTree = "<group>"; };
+		5DAA6CA51CECD25500CF2483 /* UserDefault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserDefault.m; path = "Batalha Naval/DataBase/UserDefault.m"; sourceTree = "<group>"; };
+		5DAA6CA61CECD25500CF2483 /* PlayerCompDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayerCompDAO.h; path = "Batalha Naval/DataBase/PlayerCompDAO.h"; sourceTree = "<group>"; };
+		5DAA6CA71CECD25500CF2483 /* PlayerCompDAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayerCompDAO.m; path = "Batalha Naval/DataBase/PlayerCompDAO.m"; sourceTree = "<group>"; };
+		5DAA6CAB1CECD26F00CF2483 /* DataBase.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataBase.xcdatamodel; sourceTree = "<group>"; };
+		5DC3B5771C5142C700A0A54B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		5DE6C58F1C7242400038C677 /* libRKValueTransformers.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRKValueTransformers.a; path = "Pods/../build/Debug-iphoneos/libRKValueTransformers.a"; sourceTree = "<group>"; };
+		5DE6C5911C7242630038C677 /* libAFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAFNetworking.a; path = "Pods/../build/Debug-iphoneos/libAFNetworking.a"; sourceTree = "<group>"; };
+		5DE6C5921C7242630038C677 /* libISO8601DateFormatterValueTransformer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libISO8601DateFormatterValueTransformer.a; path = "Pods/../build/Debug-iphoneos/libISO8601DateFormatterValueTransformer.a"; sourceTree = "<group>"; };
+		5DE6C5931C7242630038C677 /* libSOCKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSOCKit.a; path = "Pods/../build/Debug-iphoneos/libSOCKit.a"; sourceTree = "<group>"; };
+		5DE6C5941C7242630038C677 /* libTransitionKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTransitionKit.a; path = "Pods/../build/Debug-iphoneos/libTransitionKit.a"; sourceTree = "<group>"; };
+		E11FD2086C319339E233C5C3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		E37CE63E11105B7BACB2F5F8 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5D0B97E71C33FA22008564B0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5D68D8151C6503AE002BDB29 /* Security.framework in Frameworks */,
+				5D68D8171C6503BE002BDB29 /* SystemConfiguration.framework in Frameworks */,
+				5D0C3B5A1C6B9E980067461E /* libRestKit.a in Frameworks */,
+				5D68D8131C6503A0002BDB29 /* MobileCoreServices.framework in Frameworks */,
+				5D68D8111C65037A002BDB29 /* CFNetwork.framework in Frameworks */,
+				5DC3B5781C5142C700A0A54B /* AVFoundation.framework in Frameworks */,
+				5DA20CDC1C50FF8A00CCD356 /* QuartzCore.framework in Frameworks */,
+				5D09FD6B1C3EA15000BE521F /* CoreData.framework in Frameworks */,
+				B9BC42D6809FCCD693E68C78 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D0B98001C33FA22008564B0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5D07AAC01CCF9FEC00AEA6DF /* TestField */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C521CECD0A300CF2483 /* TestField.h */,
+				5DAA6C531CECD0A300CF2483 /* TestField.m */,
+			);
+			name = TestField;
+			sourceTree = "<group>";
+		};
+		5D07AAC11CCFAC3400AEA6DF /* AfundarNavios */ = {
+			isa = PBXGroup;
+			children = (
+				5DFCA00B1CEA11D70038C12D /* FirstScene */,
+				5DF819EE1C9872A90063C23E /* RankingBestTime */,
+				5D6EFF251C7F34B90002B3DF /* SinkShips */,
+			);
+			name = AfundarNavios;
+			sourceTree = "<group>";
+		};
+		5D07AAC21CCFACAF00AEA6DF /* ValidatePlayerName */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C5D1CECD0A300CF2483 /* ValidatePlayerName.h */,
+				5DAA6C5E1CECD0A300CF2483 /* ValidatePlayerName.m */,
+			);
+			name = ValidatePlayerName;
+			path = "Batalha Naval";
+			sourceTree = "<group>";
+		};
+		5D0B97E11C33FA22008564B0 = {
+			isa = PBXGroup;
+			children = (
+				5D9E7E031CA0654B00800DA6 /* Pods.xcodeproj */,
+				5D0B97EC1C33FA22008564B0 /* Batalha Naval */,
+				5D0B98061C33FA22008564B0 /* Batalha NavalTests */,
+				5D0B97EB1C33FA22008564B0 /* Products */,
+				5D2C01D5C9104C3A1028A97B /* Pods */,
+				C5C9B4BB8B4687B60CA38C93 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		5D0B97EB1C33FA22008564B0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5D0B97EA1C33FA22008564B0 /* Batalha Naval.app */,
+				5D0B98031C33FA22008564B0 /* Batalha NavalTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5D0B97EC1C33FA22008564B0 /* Batalha Naval */ = {
+			isa = PBXGroup;
+			children = (
+				5D0CFAFC1C88792A006F2ADC /* AppDelegate */,
+				5D68D45E1C9C728B0071FD7F /* Modelos */,
+				5D8EE3B01CBE8447008684A1 /* Views */,
+				5DF819ED1C9872640063C23E /* Controllers */,
+				5DCE83D21CB6BB370019CFFD /* Utils */,
+				5D6F484A1CB8288900F879D6 /* WebService */,
+				5D40C2F71C52685100906739 /* DataBase */,
+				5D68D80F1C64FADB002BDB29 /* Libraries */,
+				5DC3B5791C51434600A0A54B /* ArquivosMultimidia */,
+				5D0B97ED1C33FA22008564B0 /* Supporting Files */,
+			);
+			path = "Batalha Naval";
+			sourceTree = "<group>";
+		};
+		5D0B97ED1C33FA22008564B0 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5D0B97FA1C33FA22008564B0 /* Images.xcassets */,
+				5D0B97FC1C33FA22008564B0 /* LaunchScreen.xib */,
+				5D0B97EE1C33FA22008564B0 /* Info.plist */,
+				5D0B97EF1C33FA22008564B0 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5D0B98061C33FA22008564B0 /* Batalha NavalTests */ = {
+			isa = PBXGroup;
+			children = (
+				5D0B98091C33FA22008564B0 /* Batalha_NavalTests.m */,
+				5D07AAD51CCFE41300AEA6DF /* ChamadasRestKitTests.m */,
+			);
+			path = "Batalha NavalTests";
+			sourceTree = "<group>";
+		};
+		5D0CFAFC1C88792A006F2ADC /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				5D0B97F11C33FA22008564B0 /* AppDelegate.h */,
+				5D0B97F21C33FA22008564B0 /* AppDelegate.m */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		5D100BFF1CBBFC2600F61396 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C541CECD0A300CF2483 /* Alert.h */,
+				5DAA6C551CECD0A300CF2483 /* Alert.m */,
+			);
+			name = Alert;
+			sourceTree = "<group>";
+		};
+		5D100C001CBC148500F61396 /* CreatePlayer */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C291CECCD7F00CF2483 /* CreatePlayer.h */,
+				5DAA6C2A1CECCD7F00CF2483 /* CreatePlayer.m */,
+			);
+			name = CreatePlayer;
+			sourceTree = "<group>";
+		};
+		5D100C061CBC1BED00F61396 /* GameDetail */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C341CECCD7F00CF2483 /* GameDetail.h */,
+				5DAA6C351CECCD7F00CF2483 /* GameDetail.m */,
+			);
+			name = GameDetail;
+			sourceTree = "<group>";
+		};
+		5D1FA1881CDA311E00BC01C1 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C591CECD0A300CF2483 /* Reachability.h */,
+				5DAA6C5A1CECD0A300CF2483 /* Reachability.m */,
+			);
+			name = Reachability;
+			path = "Batalha Naval";
+			sourceTree = "<group>";
+		};
+		5D2C01D5C9104C3A1028A97B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E37CE63E11105B7BACB2F5F8 /* Pods.debug.xcconfig */,
+				E11FD2086C319339E233C5C3 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		5D40C2F71C52685100906739 /* DataBase */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6CA41CECD25500CF2483 /* UserDefault.h */,
+				5DAA6CA51CECD25500CF2483 /* UserDefault.m */,
+				5DAA6CA61CECD25500CF2483 /* PlayerCompDAO.h */,
+				5DAA6CA71CECD25500CF2483 /* PlayerCompDAO.m */,
+				5DAA6CAA1CECD26F00CF2483 /* DataBase.xcdatamodeld */,
+			);
+			name = DataBase;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		5D68D45E1C9C728B0071FD7F /* Modelos */ = {
+			isa = PBXGroup;
+			children = (
+				5DCE83CE1CB69CF30019CFFD /* BatalhaVsComp */,
+				5D6F48481CB7EA4200F879D6 /* BatalhaVsJog */,
+			);
+			name = Modelos;
+			sourceTree = "<group>";
+		};
+		5D68D80F1C64FADB002BDB29 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				5D68D8161C6503BE002BDB29 /* SystemConfiguration.framework */,
+				5D68D8141C6503AE002BDB29 /* Security.framework */,
+				5D68D8121C6503A0002BDB29 /* MobileCoreServices.framework */,
+				5D68D8101C65037A002BDB29 /* CFNetwork.framework */,
+				5DC3B5771C5142C700A0A54B /* AVFoundation.framework */,
+				5DA20CDB1C50FF8A00CCD356 /* QuartzCore.framework */,
+				5D09FD6A1C3EA15000BE521F /* CoreData.framework */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		5D6EFF231C7F34760002B3DF /* BatalhaVsJogador */ = {
+			isa = PBXGroup;
+			children = (
+				5D8EE3BC1CBE86E6008684A1 /* FirstScene */,
+				5DCFD6781C735AFE0052F742 /* BatalhaOnline */,
+				5D100C001CBC148500F61396 /* CreatePlayer */,
+				5DFB041D1CBD708100F42529 /* ShipDistributor */,
+				5D100C061CBC1BED00F61396 /* GameDetail */,
+				5D8EE3BB1CBE86DD008684A1 /* PlayerList */,
+				5D8EE3BA1CBE86C8008684A1 /* GameHistory */,
+				5D8EE3B91CBE86C0008684A1 /* ActiveGames */,
+				5D8EE3B81CBE86B1008684A1 /* CreateGame */,
+			);
+			name = BatalhaVsJogador;
+			path = "Batalha Naval";
+			sourceTree = "<group>";
+		};
+		5D6EFF241C7F349D0002B3DF /* BatalhaOffline */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C3C1CECCD7F00CF2483 /* BatalhaOffline.h */,
+				5DAA6C201CECCD7F00CF2483 /* BatalhaOffline.m */,
+			);
+			name = BatalhaOffline;
+			path = "Batalha Naval";
+			sourceTree = "<group>";
+		};
+		5D6EFF251C7F34B90002B3DF /* SinkShips */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C1D1CECCD2D00CF2483 /* SinkShips.h */,
+				5DAA6C1E1CECCD2D00CF2483 /* SinkShips.m */,
+			);
+			name = SinkShips;
+			path = "Batalha Naval";
+			sourceTree = "<group>";
+		};
+		5D6EFF271C7F34E30002B3DF /* ConfiguracoesController */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C321CECCD7F00CF2483 /* ConfiguracoesController.h */,
+				5DAA6C331CECCD7F00CF2483 /* ConfiguracoesController.m */,
+			);
+			name = ConfiguracoesController;
+			path = "Batalha Naval";
+			sourceTree = "<group>";
+		};
+		5D6EFF281C7F35000002B3DF /* ShipGenerator */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C631CECD0A300CF2483 /* ShipGenerator.h */,
+				5DAA6C641CECD0A300CF2483 /* ShipGenerator.m */,
+			);
+			name = ShipGenerator;
+			path = "Batalha Naval";
+			sourceTree = "<group>";
+		};
+		5D6EFF291C7F35150002B3DF /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C5B1CECD0A300CF2483 /* Sound.h */,
+				5DAA6C5C1CECD0A300CF2483 /* Sound.m */,
+			);
+			name = Sound;
+			path = "Batalha Naval";
+			sourceTree = "<group>";
+		};
+		5D6F48481CB7EA4200F879D6 /* BatalhaVsJog */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6BED1CECC98500CF2483 /* ModelosOnline.h */,
+				5DAA6BEC1CECC98500CF2483 /* Game.h */,
+				5DAA6BF41CECC98500CF2483 /* Game.m */,
+				5DAA6BEE1CECC98500CF2483 /* Player.h */,
+				5DAA6BF51CECC98500CF2483 /* Player.m */,
+				5DAA6BEF1CECC98500CF2483 /* PlayerField.h */,
+				5DAA6BF61CECC98500CF2483 /* PlayerField.m */,
+				5DAA6BF01CECC98500CF2483 /* Position.h */,
+				5DAA6BF71CECC98500CF2483 /* Position.m */,
+				5DAA6BF11CECC98500CF2483 /* Ship.h */,
+				5DAA6BF81CECC98500CF2483 /* Ship.m */,
+				5DAA6BF21CECC98500CF2483 /* Shot.h */,
+				5DAA6BF91CECC98500CF2483 /* Shot.m */,
+				5DAA6BEB1CECC98500CF2483 /* Fire.h */,
+				5DAA6BF31CECC98500CF2483 /* Fire.m */,
+			);
+			name = BatalhaVsJog;
+			sourceTree = "<group>";
+		};
+		5D6F48491CB81F2B00F879D6 /* RKUtil */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C611CECD0A300CF2483 /* RKUtil.h */,
+				5DAA6C621CECD0A300CF2483 /* RKUtil.m */,
+			);
+			name = RKUtil;
+			path = "Batalha Naval";
+			sourceTree = "<group>";
+		};
+		5D6F484A1CB8288900F879D6 /* WebService */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C701CECD14D00CF2483 /* RestKitCallBack.h */,
+				5DAA6C711CECD14D00CF2483 /* WebService.h */,
+				5DAA6C721CECD14D00CF2483 /* WebService.m */,
+			);
+			name = WebService;
+			sourceTree = "<group>";
+		};
+		5D8E472E1C89FF63002734C0 /* FirstScene */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C111CECCC1200CF2483 /* FirstScene.h */,
+				5DAA6C121CECCC1200CF2483 /* FirstScene.m */,
+			);
+			name = FirstScene;
+			path = "Batalha Naval";
+			sourceTree = "<group>";
+		};
+		5D8EE3B01CBE8447008684A1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C011CECCA5200CF2483 /* CreatePlayer.xib */,
+				5DAA6C021CECCA5200CF2483 /* PlayerList.xib */,
+				5DAA6C031CECCA5200CF2483 /* ShipDistributor.xib */,
+				5DAA6C041CECCA5200CF2483 /* GameDetail.xib */,
+				5DAA6C051CECCA5200CF2483 /* ShipCompDistributor.xib */,
+				5DAA6C061CECCA5200CF2483 /* SinkShips.xib */,
+				5DAA6C071CECCA5200CF2483 /* BatalhaOffline.xib */,
+				5DAA6C081CECCA5200CF2483 /* BatalhaOnline.xib */,
+				5D0B97F71C33FA22008564B0 /* Main.storyboard */,
+			);
+			name = Views;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		5D8EE3B81CBE86B1008684A1 /* CreateGame */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C271CECCD7F00CF2483 /* CreateGame.h */,
+				5DAA6C281CECCD7F00CF2483 /* CreateGame.m */,
+			);
+			name = CreateGame;
+			sourceTree = "<group>";
+		};
+		5D8EE3B91CBE86C0008684A1 /* ActiveGames */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C141CECCC1C00CF2483 /* ActiveGames.h */,
+				5DAA6C151CECCC1C00CF2483 /* ActiveGames.m */,
+			);
+			name = ActiveGames;
+			sourceTree = "<group>";
+		};
+		5D8EE3BA1CBE86C8008684A1 /* GameHistory */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C2B1CECCD7F00CF2483 /* GameHistory.h */,
+				5DAA6C361CECCD7F00CF2483 /* GameHistory.m */,
+			);
+			name = GameHistory;
+			sourceTree = "<group>";
+		};
+		5D8EE3BB1CBE86DD008684A1 /* PlayerList */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C2D1CECCD7F00CF2483 /* PlayerList.h */,
+				5DAA6C2E1CECCD7F00CF2483 /* PlayerList.m */,
+			);
+			name = PlayerList;
+			sourceTree = "<group>";
+		};
+		5D8EE3BC1CBE86E6008684A1 /* FirstScene */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C301CECCD7F00CF2483 /* BatalhaVsJogador.h */,
+				5DAA6C311CECCD7F00CF2483 /* BatalhaVsJogador.m */,
+			);
+			name = FirstScene;
+			sourceTree = "<group>";
+		};
+		5D8EE3BD1CBE8708008684A1 /* BatalhaVsComp */ = {
+			isa = PBXGroup;
+			children = (
+				5DFCA0041CEA09020038C12D /* FirstScene */,
+				5DF819EF1C9872BA0063C23E /* PlayerInformation */,
+				5D6EFF241C7F349D0002B3DF /* BatalhaOffline */,
+				5DDA2BC71C89B4A700635576 /* ShipCompDistributor */,
+				5D6EFF271C7F34E30002B3DF /* ConfiguracoesController */,
+				5DF819F01C9872C40063C23E /* PlayerCompList */,
+			);
+			name = BatalhaVsComp;
+			sourceTree = "<group>";
+		};
+		5D9E7E041CA0654B00800DA6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5D9E7E0E1CA0654B00800DA6 /* libAFNetworking.a */,
+				5D9E7E101CA0654B00800DA6 /* libISO8601DateFormatterValueTransformer.a */,
+				5D9E7E121CA0654B00800DA6 /* libPods.a */,
+				5D9E7E141CA0654B00800DA6 /* libRestKit.a */,
+				5D9E7E161CA0654B00800DA6 /* libRKValueTransformers.a */,
+				5D9E7E181CA0654B00800DA6 /* libSOCKit.a */,
+				5D9E7E1A1CA0654B00800DA6 /* libTransitionKit.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5DAA6BB61CECB97C00CF2483 /* DateUtil */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C5F1CECD0A300CF2483 /* DateUtil.h */,
+				5DAA6C601CECD0A300CF2483 /* DateUtil.m */,
+			);
+			name = DateUtil;
+			sourceTree = "<group>";
+		};
+		5DB5D0841C91A89700374D8C /* LoadingView */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C561CECD0A300CF2483 /* LoadingView.h */,
+				5DAA6C571CECD0A300CF2483 /* LoadingView.m */,
+				5DAA6C581CECD0A300CF2483 /* LoadingView.xib */,
+			);
+			name = LoadingView;
+			path = "Batalha Naval";
+			sourceTree = "<group>";
+		};
+		5DBFEC481CC66B5500B87CA7 /* ImageUtil */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C501CECD0A300CF2483 /* ImageUtil.h */,
+				5DAA6C511CECD0A300CF2483 /* ImageUtil.m */,
+			);
+			name = ImageUtil;
+			sourceTree = "<group>";
+		};
+		5DC3B5791C51434600A0A54B /* ArquivosMultimidia */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C741CECD1B200CF2483 /* atrasNavio.png */,
+				5DAA6C751CECD1B200CF2483 /* bombaLancada.wav */,
+				5DAA6C761CECD1B200CF2483 /* frenteNavio.png */,
+				5DAA6C771CECD1B200CF2483 /* Icon-settings.png */,
+				5DAA6C781CECD1B200CF2483 /* Icon.png */,
+				5DAA6C791CECD1B200CF2483 /* meioNavio.png */,
+				5DAA6C7A1CECD1B200CF2483 /* oldSonar.wav */,
+				5DAA6C7B1CECD1B200CF2483 /* sadTrambone.wav */,
+				5DAA6C7C1CECD1B200CF2483 /* shipBell.wav */,
+				5DAA6C7D1CECD1B200CF2483 /* splash.wav */,
+				5DAA6C7E1CECD1B200CF2483 /* submarino.png */,
+				5DAA6C7F1CECD1B200CF2483 /* TaDa.wav */,
+				5DAA6C801CECD1B200CF2483 /* temaInicio.mp3 */,
+				5DAA6C811CECD1B200CF2483 /* detailImageOnline.jpg */,
+				5DAA6C821CECD1B200CF2483 /* medals.gif */,
+				5DAA6C831CECD1B200CF2483 /* soundTemaOnline.mp3 */,
+				5DAA6C841CECD1B200CF2483 /* wallpaper_world_of_warships_04_1920x1080-1024x576.jpg */,
+				5DAA6C851CECD1B200CF2483 /* Botoes_5112_user_48.png */,
+				5DAA6C861CECD1B200CF2483 /* Botoes_5113_add_48.png */,
+				5DAA6C871CECD1B200CF2483 /* 96533_Papel-de-Parede-Aeronautica-e-Marinha--96533_1680x1050.jpg */,
+				5DAA6C881CECD1B200CF2483 /* battleship-4f70d345e53fc.png */,
+				5DAA6C891CECD1B200CF2483 /* explosion-153710_640.png */,
+				5DAA6C8A1CECD1B200CF2483 /* 2398_world_of_warships_banner3.jpg */,
+				5DAA6C8B1CECD1B200CF2483 /* batalhaNaval.jpeg */,
+			);
+			name = ArquivosMultimidia;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		5DCE83CE1CB69CF30019CFFD /* BatalhaVsComp */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6BE71CECC80C00CF2483 /* ModelosOffline.h */,
+				5DAA6BE81CECC83000CF2483 /* ConfigurationComp.h */,
+				5DAA6BE91CECC83000CF2483 /* ConfigurationComp.m */,
+				5DAA6BE41CECC80500CF2483 /* ShotComp.h */,
+				5DAA6BE51CECC80500CF2483 /* ShotComp.m */,
+				5DAA6BE11CECC7FA00CF2483 /* ShipComp.h */,
+				5DAA6BE21CECC7FA00CF2483 /* ShipComp.m */,
+				5DAA6BDE1CECC7DF00CF2483 /* PlayerComp.h */,
+				5DAA6BDF1CECC7DF00CF2483 /* PlayerComp.m */,
+				5DAA6BDA1CECC61200CF2483 /* GameComp.h */,
+				5DAA6BDB1CECC61200CF2483 /* GameComp.m */,
+			);
+			name = BatalhaVsComp;
+			sourceTree = "<group>";
+		};
+		5DCE83D21CB6BB370019CFFD /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				5D1FA1881CDA311E00BC01C1 /* Reachability */,
+				5D07AAC21CCFACAF00AEA6DF /* ValidatePlayerName */,
+				5D6EFF281C7F35000002B3DF /* ShipGenerator */,
+				5DBFEC481CC66B5500B87CA7 /* ImageUtil */,
+				5D100BFF1CBBFC2600F61396 /* Alert */,
+				5D6F48491CB81F2B00F879D6 /* RKUtil */,
+				5D6EFF291C7F35150002B3DF /* Sound */,
+				5DB5D0841C91A89700374D8C /* LoadingView */,
+				5D07AAC01CCF9FEC00AEA6DF /* TestField */,
+				5DAA6BB61CECB97C00CF2483 /* DateUtil */,
+			);
+			name = Utils;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		5DCFD6781C735AFE0052F742 /* BatalhaOnline */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C241CECCD7F00CF2483 /* BatalhaOnline.h */,
+				5DAA6C211CECCD7F00CF2483 /* BatalhaOnline.m */,
+			);
+			name = BatalhaOnline;
+			sourceTree = "<group>";
+		};
+		5DDA2BC71C89B4A700635576 /* ShipCompDistributor */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C3A1CECCD7F00CF2483 /* ShipCompDistributor.h */,
+				5DAA6C3D1CECCD7F00CF2483 /* ShipCompDistributor.m */,
+			);
+			name = ShipCompDistributor;
+			path = "Batalha Naval";
+			sourceTree = "<group>";
+		};
+		5DF819ED1C9872640063C23E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5D8E472E1C89FF63002734C0 /* FirstScene */,
+				5D07AAC11CCFAC3400AEA6DF /* AfundarNavios */,
+				5D8EE3BD1CBE8708008684A1 /* BatalhaVsComp */,
+				5D6EFF231C7F34760002B3DF /* BatalhaVsJogador */,
+			);
+			name = Controllers;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		5DF819EE1C9872A90063C23E /* RankingBestTime */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C171CECCC4900CF2483 /* RankingBestTime.h */,
+				5DAA6C181CECCC4900CF2483 /* RankingBestTime.m */,
+			);
+			name = RankingBestTime;
+			path = "Batalha Naval";
+			sourceTree = "<group>";
+		};
+		5DF819EF1C9872BA0063C23E /* PlayerInformation */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C381CECCD7F00CF2483 /* PlayerInformation.h */,
+				5DAA6C391CECCD7F00CF2483 /* PlayerInformation.m */,
+			);
+			name = PlayerInformation;
+			path = "Batalha Naval";
+			sourceTree = "<group>";
+		};
+		5DF819F01C9872C40063C23E /* PlayerCompList */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C2C1CECCD7F00CF2483 /* PlayerCompList.h */,
+				5DAA6C371CECCD7F00CF2483 /* PlayerCompList.m */,
+			);
+			name = PlayerCompList;
+			path = "Batalha Naval";
+			sourceTree = "<group>";
+		};
+		5DFB041D1CBD708100F42529 /* ShipDistributor */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C2F1CECCD7F00CF2483 /* ShipDistributor.h */,
+				5DAA6C3B1CECCD7F00CF2483 /* ShipDistributor.m */,
+			);
+			name = ShipDistributor;
+			sourceTree = "<group>";
+		};
+		5DFCA0041CEA09020038C12D /* FirstScene */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C4D1CECCEBD00CF2483 /* BatalhaVsComputador.h */,
+				5DAA6C4E1CECCEBD00CF2483 /* BatalhaVsComputador.m */,
+			);
+			name = FirstScene;
+			sourceTree = "<group>";
+		};
+		5DFCA00B1CEA11D70038C12D /* FirstScene */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA6C1A1CECCD0E00CF2483 /* AfundarNavios.h */,
+				5DAA6C1B1CECCD0E00CF2483 /* AfundarNavios.m */,
+			);
+			name = FirstScene;
+			sourceTree = "<group>";
+		};
+		C5C9B4BB8B4687B60CA38C93 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5DE6C5911C7242630038C677 /* libAFNetworking.a */,
+				5DE6C5921C7242630038C677 /* libISO8601DateFormatterValueTransformer.a */,
+				5DE6C5931C7242630038C677 /* libSOCKit.a */,
+				5DE6C5941C7242630038C677 /* libTransitionKit.a */,
+				5DE6C58F1C7242400038C677 /* libRKValueTransformers.a */,
+				5D0C3B591C6B9E980067461E /* libRestKit.a */,
+				5D0C3B4B1C6B95A30067461E /* libRestKit.a */,
+				4C8E4737FCD3FDEED9CD2F2C /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5D0B97E91C33FA22008564B0 /* Batalha Naval */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5D0B980D1C33FA22008564B0 /* Build configuration list for PBXNativeTarget "Batalha Naval" */;
+			buildPhases = (
+				5BFBE9B876D2F8DB4901B0A8 /* Check Pods Manifest.lock */,
+				5D0B97E61C33FA22008564B0 /* Sources */,
+				5D0B97E71C33FA22008564B0 /* Frameworks */,
+				5D0B97E81C33FA22008564B0 /* Resources */,
+				04867698E4C64580274309B9 /* Embed Pods Frameworks */,
+				4F293549F868771073D9B59F /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Batalha Naval";
+			productName = "Batalha Naval";
+			productReference = 5D0B97EA1C33FA22008564B0 /* Batalha Naval.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5D0B98021C33FA22008564B0 /* Batalha NavalTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5D0B98101C33FA22008564B0 /* Build configuration list for PBXNativeTarget "Batalha NavalTests" */;
+			buildPhases = (
+				5D0B97FF1C33FA22008564B0 /* Sources */,
+				5D0B98001C33FA22008564B0 /* Frameworks */,
+				5D0B98011C33FA22008564B0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5D0B98051C33FA22008564B0 /* PBXTargetDependency */,
+			);
+			name = "Batalha NavalTests";
+			productName = "Batalha NavalTests";
+			productReference = 5D0B98031C33FA22008564B0 /* Batalha NavalTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5D0B97E21C33FA22008564B0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Gabriel A. Dragoni";
+				TargetAttributes = {
+					5D0B97E91C33FA22008564B0 = {
+						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = KF2U5RM5HT;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+						};
+					};
+					5D0B98021C33FA22008564B0 = {
+						CreatedOnToolsVersion = 6.4;
+						TestTargetID = 5D0B97E91C33FA22008564B0;
+					};
+				};
+			};
+			buildConfigurationList = 5D0B97E51C33FA22008564B0 /* Build configuration list for PBXProject "Batalha Naval" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5D0B97E11C33FA22008564B0;
+			productRefGroup = 5D0B97EB1C33FA22008564B0 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 5D9E7E041CA0654B00800DA6 /* Products */;
+					ProjectRef = 5D9E7E031CA0654B00800DA6 /* Pods.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				5D0B97E91C33FA22008564B0 /* Batalha Naval */,
+				5D0B98021C33FA22008564B0 /* Batalha NavalTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		5D9E7E0E1CA0654B00800DA6 /* libAFNetworking.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAFNetworking.a;
+			remoteRef = 5D9E7E0D1CA0654B00800DA6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5D9E7E101CA0654B00800DA6 /* libISO8601DateFormatterValueTransformer.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libISO8601DateFormatterValueTransformer.a;
+			remoteRef = 5D9E7E0F1CA0654B00800DA6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5D9E7E121CA0654B00800DA6 /* libPods.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libPods.a;
+			remoteRef = 5D9E7E111CA0654B00800DA6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5D9E7E141CA0654B00800DA6 /* libRestKit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRestKit.a;
+			remoteRef = 5D9E7E131CA0654B00800DA6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5D9E7E161CA0654B00800DA6 /* libRKValueTransformers.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRKValueTransformers.a;
+			remoteRef = 5D9E7E151CA0654B00800DA6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5D9E7E181CA0654B00800DA6 /* libSOCKit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSOCKit.a;
+			remoteRef = 5D9E7E171CA0654B00800DA6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5D9E7E1A1CA0654B00800DA6 /* libTransitionKit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libTransitionKit.a;
+			remoteRef = 5D9E7E191CA0654B00800DA6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5D0B97E81C33FA22008564B0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5DAA6C941CECD1B200CF2483 /* shipBell.wav in Resources */,
+				5DAA6C901CECD1B200CF2483 /* Icon.png in Resources */,
+				5DAA6C8E1CECD1B200CF2483 /* frenteNavio.png in Resources */,
+				5DAA6C9C1CECD1B200CF2483 /* wallpaper_world_of_warships_04_1920x1080-1024x576.jpg in Resources */,
+				5DAA6CA21CECD1B200CF2483 /* 2398_world_of_warships_banner3.jpg in Resources */,
+				5DAA6C0E1CECCA5200CF2483 /* SinkShips.xib in Resources */,
+				5DAA6C911CECD1B200CF2483 /* meioNavio.png in Resources */,
+				5DAA6C991CECD1B200CF2483 /* detailImageOnline.jpg in Resources */,
+				5DAA6C9E1CECD1B200CF2483 /* Botoes_5113_add_48.png in Resources */,
+				5DAA6C9B1CECD1B200CF2483 /* soundTemaOnline.mp3 in Resources */,
+				5DAA6C0C1CECCA5200CF2483 /* GameDetail.xib in Resources */,
+				5D0B97F91C33FA22008564B0 /* Main.storyboard in Resources */,
+				5DAA6CA31CECD1B200CF2483 /* batalhaNaval.jpeg in Resources */,
+				5D0B97FE1C33FA22008564B0 /* LaunchScreen.xib in Resources */,
+				5DAA6C9F1CECD1B200CF2483 /* 96533_Papel-de-Parede-Aeronautica-e-Marinha--96533_1680x1050.jpg in Resources */,
+				5DAA6C8C1CECD1B200CF2483 /* atrasNavio.png in Resources */,
+				5DAA6C0A1CECCA5200CF2483 /* PlayerList.xib in Resources */,
+				5DAA6CA11CECD1B200CF2483 /* explosion-153710_640.png in Resources */,
+				5DAA6C9A1CECD1B200CF2483 /* medals.gif in Resources */,
+				5DAA6C0B1CECCA5200CF2483 /* ShipDistributor.xib in Resources */,
+				5DAA6C961CECD1B200CF2483 /* submarino.png in Resources */,
+				5DAA6C0D1CECCA5200CF2483 /* ShipCompDistributor.xib in Resources */,
+				5D0B97FB1C33FA22008564B0 /* Images.xcassets in Resources */,
+				5DAA6C0F1CECCA5200CF2483 /* BatalhaOffline.xib in Resources */,
+				5DAA6C8F1CECD1B200CF2483 /* Icon-settings.png in Resources */,
+				5DAA6C951CECD1B200CF2483 /* splash.wav in Resources */,
+				5DAA6CA01CECD1B200CF2483 /* battleship-4f70d345e53fc.png in Resources */,
+				5DAA6C091CECCA5200CF2483 /* CreatePlayer.xib in Resources */,
+				5DAA6C921CECD1B200CF2483 /* oldSonar.wav in Resources */,
+				5DAA6C101CECCA5200CF2483 /* BatalhaOnline.xib in Resources */,
+				5DAA6C691CECD0A300CF2483 /* LoadingView.xib in Resources */,
+				5DAA6C8D1CECD1B200CF2483 /* bombaLancada.wav in Resources */,
+				5DAA6C971CECD1B200CF2483 /* TaDa.wav in Resources */,
+				5DAA6C9D1CECD1B200CF2483 /* Botoes_5112_user_48.png in Resources */,
+				5DAA6C931CECD1B200CF2483 /* sadTrambone.wav in Resources */,
+				5DAA6C981CECD1B200CF2483 /* temaInicio.mp3 in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D0B98011C33FA22008564B0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		04867698E4C64580274309B9 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4F293549F868771073D9B59F /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5BFBE9B876D2F8DB4901B0A8 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5D0B97E61C33FA22008564B0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5DAA6C6B1CECD0A300CF2483 /* Sound.m in Sources */,
+				5DAA6BE01CECC7DF00CF2483 /* PlayerComp.m in Sources */,
+				5DAA6C441CECCD7F00CF2483 /* PlayerList.m in Sources */,
+				5DAA6BEA1CECC83000CF2483 /* ConfigurationComp.m in Sources */,
+				5DAA6C6D1CECD0A300CF2483 /* DateUtil.m in Sources */,
+				5DAA6C161CECCC1C00CF2483 /* ActiveGames.m in Sources */,
+				5DAA6C6E1CECD0A300CF2483 /* RKUtil.m in Sources */,
+				5DAA6BE61CECC80500CF2483 /* ShotComp.m in Sources */,
+				5DAA6C731CECD14D00CF2483 /* WebService.m in Sources */,
+				5DAA6C6F1CECD0A300CF2483 /* ShipGenerator.m in Sources */,
+				5DAA6C471CECCD7F00CF2483 /* GameDetail.m in Sources */,
+				5DAA6C491CECCD7F00CF2483 /* PlayerCompList.m in Sources */,
+				5DAA6C6A1CECD0A300CF2483 /* Reachability.m in Sources */,
+				5DAA6C4C1CECCD7F00CF2483 /* ShipCompDistributor.m in Sources */,
+				5DAA6BDC1CECC61200CF2483 /* GameComp.m in Sources */,
+				5DAA6BFB1CECC98500CF2483 /* Game.m in Sources */,
+				5DAA6C6C1CECD0A300CF2483 /* ValidatePlayerName.m in Sources */,
+				5DAA6C3E1CECCD7F00CF2483 /* BatalhaOffline.m in Sources */,
+				5DAA6C4F1CECCEBD00CF2483 /* BatalhaVsComputador.m in Sources */,
+				5DAA6C661CECD0A300CF2483 /* TestField.m in Sources */,
+				5DAA6BE31CECC7FA00CF2483 /* ShipComp.m in Sources */,
+				5DAA6C431CECCD7F00CF2483 /* CreatePlayer.m in Sources */,
+				5DAA6C421CECCD7F00CF2483 /* CreateGame.m in Sources */,
+				5DAA6BFC1CECC98500CF2483 /* Player.m in Sources */,
+				5DAA6C4A1CECCD7F00CF2483 /* PlayerInformation.m in Sources */,
+				5DAA6C4B1CECCD7F00CF2483 /* ShipDistributor.m in Sources */,
+				5DAA6C681CECD0A300CF2483 /* LoadingView.m in Sources */,
+				5DAA6C191CECCC4900CF2483 /* RankingBestTime.m in Sources */,
+				5DAA6C481CECCD7F00CF2483 /* GameHistory.m in Sources */,
+				5D0B97F31C33FA22008564B0 /* AppDelegate.m in Sources */,
+				5DAA6C131CECCC1200CF2483 /* FirstScene.m in Sources */,
+				5DAA6C671CECD0A300CF2483 /* Alert.m in Sources */,
+				5DAA6C001CECC98500CF2483 /* Shot.m in Sources */,
+				5DAA6BFD1CECC98500CF2483 /* PlayerField.m in Sources */,
+				5D0B97F01C33FA22008564B0 /* main.m in Sources */,
+				5DAA6C461CECCD7F00CF2483 /* ConfiguracoesController.m in Sources */,
+				5DAA6CAC1CECD26F00CF2483 /* DataBase.xcdatamodeld in Sources */,
+				5DAA6CA81CECD25500CF2483 /* UserDefault.m in Sources */,
+				5DAA6C1F1CECCD2D00CF2483 /* SinkShips.m in Sources */,
+				5DAA6CA91CECD25500CF2483 /* PlayerCompDAO.m in Sources */,
+				5DAA6C3F1CECCD7F00CF2483 /* BatalhaOnline.m in Sources */,
+				5DAA6BFF1CECC98500CF2483 /* Ship.m in Sources */,
+				5DAA6C1C1CECCD0E00CF2483 /* AfundarNavios.m in Sources */,
+				5DAA6BFA1CECC98500CF2483 /* Fire.m in Sources */,
+				5DAA6C451CECCD7F00CF2483 /* BatalhaVsJogador.m in Sources */,
+				5DAA6BFE1CECC98500CF2483 /* Position.m in Sources */,
+				5DAA6C651CECD0A300CF2483 /* ImageUtil.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D0B97FF1C33FA22008564B0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5D07AAD61CCFE41300AEA6DF /* ChamadasRestKitTests.m in Sources */,
+				5D0B980A1C33FA22008564B0 /* Batalha_NavalTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5D0B98051C33FA22008564B0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5D0B97E91C33FA22008564B0 /* Batalha Naval */;
+			targetProxy = 5D0B98041C33FA22008564B0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		5D0B97F71C33FA22008564B0 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5D0B97F81C33FA22008564B0 /* Base */,
+			);
+			name = Main.storyboard;
+			path = "Batalha Naval";
+			sourceTree = "<group>";
+		};
+		5D0B97FC1C33FA22008564B0 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5D0B97FD1C33FA22008564B0 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		5D0B980B1C33FA22008564B0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		5D0B980C1C33FA22008564B0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5D0B980E1C33FA22008564B0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E37CE63E11105B7BACB2F5F8 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/ISO8601DateFormatterValueTransformer\"",
+					"\"${PODS_ROOT}/Headers/Public/RKValueTransformers\"",
+					"\"${PODS_ROOT}/Headers/Public/RestKit\"",
+					"\"${PODS_ROOT}/Headers/Public/SOCKit\"",
+					"\"${PODS_ROOT}/Headers/Public/TransitionKit\"",
+					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
+				);
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/ISO8601DateFormatterValueTransformer\"",
+					"\"${PODS_ROOT}/Headers/Public/RKValueTransformers\"",
+					"\"${PODS_ROOT}/Headers/Public/RestKit\"",
+					"\"${PODS_ROOT}/Headers/Public/SOCKit\"",
+					"\"${PODS_ROOT}/Headers/Public/TransitionKit\"",
+					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
+				);
+				INFOPLIST_FILE = "Batalha Naval/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "exe.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		5D0B980F1C33FA22008564B0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E11FD2086C319339E233C5C3 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/ISO8601DateFormatterValueTransformer\"",
+					"\"${PODS_ROOT}/Headers/Public/RKValueTransformers\"",
+					"\"${PODS_ROOT}/Headers/Public/RestKit\"",
+					"\"${PODS_ROOT}/Headers/Public/SOCKit\"",
+					"\"${PODS_ROOT}/Headers/Public/TransitionKit\"",
+					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
+				);
+				INFOPLIST_FILE = "Batalha Naval/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "exe.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		5D0B98111C33FA22008564B0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Batalha NavalTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "exe.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Batalha Naval.app/Batalha Naval";
+			};
+			name = Debug;
+		};
+		5D0B98121C33FA22008564B0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Batalha NavalTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "exe.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Batalha Naval.app/Batalha Naval";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5D0B97E51C33FA22008564B0 /* Build configuration list for PBXProject "Batalha Naval" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5D0B980B1C33FA22008564B0 /* Debug */,
+				5D0B980C1C33FA22008564B0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5D0B980D1C33FA22008564B0 /* Build configuration list for PBXNativeTarget "Batalha Naval" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5D0B980E1C33FA22008564B0 /* Debug */,
+				5D0B980F1C33FA22008564B0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5D0B98101C33FA22008564B0 /* Build configuration list for PBXNativeTarget "Batalha NavalTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5D0B98111C33FA22008564B0 /* Debug */,
+				5D0B98121C33FA22008564B0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5DAA6CAA1CECD26F00CF2483 /* DataBase.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5DAA6CAB1CECD26F00CF2483 /* DataBase.xcdatamodel */,
+			);
+			currentVersion = 5DAA6CAB1CECD26F00CF2483 /* DataBase.xcdatamodel */;
+			name = DataBase.xcdatamodeld;
+			path = "Batalha Naval/DataBase/DataBase.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 5D0B97E21C33FA22008564B0 /* Project object */;
+}

@@ -1,0 +1,24 @@
+//
+//  AfundarNaviosRegras.h
+//  Batalha Naval
+//
+//  Created by Gabriel A. Dragoni on 3/3/16.
+//  Copyright © 2016 Gabriel A. Dragoni. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface AfundarNavios : NSObject
+
+-(instancetype)initShipSink;
+-(NSInteger)percentSunkenShip:(NSInteger)amountOfFieldWithShip;
+-(NSArray*)gerarArrayDeNaviosAfundar;
+-(void)adicionarRecordAoJogador:(NSInteger)tempo;
+-(void)tocarWinAfundar;
+-(void)tocarSplashAfundar;
+-(void)tocarBombaAfundar;
+-(void)tocarShipBellAfundar;
+-(BOOL)testarArrayAfundar:(int)tag;
+-(BOOL)removeNaviosAfundar:(NSInteger)tag;
+
+@end

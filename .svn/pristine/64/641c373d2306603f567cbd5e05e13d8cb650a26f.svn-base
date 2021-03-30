@@ -1,0 +1,28 @@
+//
+//  Temporizador.h
+//  Batalha Naval
+//
+//  Created by Gabriel A. Dragoni on 12/30/15.
+//  Copyright (c) 2015 Gabriel A. Dragoni. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
+
+@class GridController;
+@interface AfundarNaviosController : UIViewController
+{
+    IBOutlet UILabel *timerLabel;
+}
+
+@property (nonatomic) GridController            *container;
+@property (weak, nonatomic) IBOutlet UILabel    *infoAfundarNaviosLabel;
+@property (weak, nonatomic) IBOutlet UILabel    *frotaAfundadaLabel;
+@property NSInteger                             seconds;
+@property (nonatomic, weak) NSTimer             *temporizador;
+
+-(void)pausaTimer;
+-(void)frotaAfundada:(NSInteger)porcentagem;
+
+@end
+

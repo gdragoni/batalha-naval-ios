@@ -1,0 +1,90 @@
+//
+//  DistribuidorController.m
+//  Batalha Naval
+//
+//  Created by Gabriel A. Dragoni on 1/14/16.
+//  Copyright (c) 2016 Gabriel A. Dragoni. All rights reserved.
+//
+
+#import "DistribuidorController.h"
+#import "DistribuidorDeNaviosGridController.h"
+#import "BatalhaVsComputadorController.h"
+#import "ShipComp.h"
+#import "GameComp.h"
+#import "GeradorDeNavios.h"
+#import "UserDefault.h"
+#import "BatalhaOffline.h"
+
+NSMutableArray  *arrayNaviosForSend;
+UIBarButtonItem *botaoVoltar;
+
+@implementation DistribuidorController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self.navigationItem setHidesBackButton:YES];
+    
+    botaoVoltar = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(goBack)];
+    self.navigationItem.leftBarButtonItem = botaoVoltar;
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)])
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+}
+
+#pragma mark - Action button
+
+-(void)goBack{
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
+    if ([segue.identifier isEqualToString:@"tabuleiro2"]) {
+        
+        DistribuidorDeNaviosGridController *grid = [segue destinationViewController];
+        self.containerDist = grid;
+        
+        self.containerDist.controllerPrinc = self;
+    }
+    else if ([segue.identifier isEqualToString:@"iniciarBatalha"]) {
+        
+        BatalhaVsComputadorController *batalha = [segue destinationViewController];
+        self.batalhaController = batalha;
+        
+        self.batalhaController.distribuidorController = self;
+        self.batalhaController.arrayNaviosJogador = [[NSMutableArray alloc]initWithArray:arrayNaviosForSend];
+    }
+}
+
+#pragma mark - Metodos
+
+-(void)changeCurrentShip:(ShipComp *)ship{
+    
+    self.navioAtualLabel.text = [NSString stringWithFormat:@"Navio Atual: %@\nQuantidade de campos: %li", navio.nome, navio.tamanho];
+    self.navioAtualLabel.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:18];
+    self.navioAtualLabel.alpha = 0;
+
+    [UIView animateWithDuration:0.5 animations:^{
+        self.navioAtualLabel.alpha = 1;
+    }];
+}
+
+-(void)comecarBatalhaComNavios:(NSMutableArray*)naviosDistribuidos{
+    
+    ConfigurationComp *config = [UserDefault getConfiguracoes];
+    GeradorDeNavios *ger = [GeradorDeNavios new];
+    GameComp *game = [[GameComp alloc]initWithNaviosJog:naviosDistribuidos naviosAdv:[ger arrayComPortaAvioes:config.configQtdPortaAvoes qtdEncouracado:config.configQtdEncouracado qtdCruiser:config.configQtdCruiser qtdDestroyer:config.configQtdDestroyer qtdSubmarino:config.configQtdSubmarino tamDaGrid:config.configTamanhoGrid comConfigPadra:NO]];
+    
+    BatalhaOffline *bat = [BatalhaOffline new];
+    bat.game = game;
+
+    [self.navigationController pushViewController:bat animated:YES];
+}
+
+@end

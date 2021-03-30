@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BatalhaOffline">
+            <connections>
+                <outlet property="collectionView" destination="gn1-NV-34O" id="k7W-rb-QVZ"/>
+                <outlet property="labelDestruction" destination="WF1-9r-oiA" id="Y6c-bK-hsZ"/>
+                <outlet property="labelLog" destination="qlt-RM-NJF" id="9mh-g0-uYe"/>
+                <outlet property="labelTurn" destination="9CL-JU-XUM" id="ALG-fs-aDx"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="g4p-HM-Dg4"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wallpaper2.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="q96-iQ-ohZ">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                </imageView>
+                <collectionView autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="center" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="gn1-NV-34O">
+                    <rect key="frame" x="5" y="115" width="310" height="310"/>
+                    <color key="backgroundColor" red="0.6588235294" green="0.78039215689999997" blue="0.84705882349999995" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="gn1-NV-34O" secondAttribute="height" multiplier="1:1" id="C85-y9-uSB"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="jDm-ah-URi">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="Ycu-72-NYq"/>
+                        <outlet property="delegate" destination="-1" id="hce-C0-RJL"/>
+                    </connections>
+                </collectionView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vez" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9CL-JU-XUM">
+                    <rect key="frame" x="5" y="70" width="150" height="40"/>
+                    <color key="backgroundColor" red="0.047058823530000002" green="0.054901960780000002" blue="0.5450980392" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qlt-RM-NJF">
+                    <rect key="frame" x="5" y="432" width="310" height="40"/>
+                    <color key="backgroundColor" red="0.047058823530000002" green="0.054901960780000002" blue="0.5450980392" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="vda-nq-XCB"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Destruição" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WF1-9r-oiA">
+                    <rect key="frame" x="165" y="70" width="150" height="40"/>
+                    <color key="backgroundColor" red="0.047058823530000002" green="0.054901960780000002" blue="0.5450980392" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.6588235294" green="0.78039215689999997" blue="0.84705882349999995" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="qlt-RM-NJF" firstAttribute="width" secondItem="gn1-NV-34O" secondAttribute="width" id="173-cS-7v6"/>
+                <constraint firstItem="qlt-RM-NJF" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="5ET-DY-7Ve"/>
+                <constraint firstItem="WF1-9r-oiA" firstAttribute="trailing" secondItem="gn1-NV-34O" secondAttribute="trailing" id="7am-6t-3Eq"/>
+                <constraint firstItem="gn1-NV-34O" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" constant="-10" id="Dye-oY-awl"/>
+                <constraint firstAttribute="bottom" secondItem="qlt-RM-NJF" secondAttribute="bottom" constant="8" id="ESn-6o-yFt"/>
+                <constraint firstItem="q96-iQ-ohZ" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="IrT-cN-kV1"/>
+                <constraint firstItem="9CL-JU-XUM" firstAttribute="width" secondItem="qlt-RM-NJF" secondAttribute="width" multiplier="0.5" constant="-5" id="JVV-5J-Apl"/>
+                <constraint firstItem="WF1-9r-oiA" firstAttribute="centerY" secondItem="9CL-JU-XUM" secondAttribute="centerY" id="KL4-sg-lWj"/>
+                <constraint firstItem="q96-iQ-ohZ" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" id="OFA-MV-F4B"/>
+                <constraint firstItem="WF1-9r-oiA" firstAttribute="height" secondItem="qlt-RM-NJF" secondAttribute="height" id="UKj-b5-cHz"/>
+                <constraint firstItem="gn1-NV-34O" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="30" id="c6B-md-HzN"/>
+                <constraint firstItem="gn1-NV-34O" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="nhk-mo-LuM"/>
+                <constraint firstItem="q96-iQ-ohZ" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="p8e-sc-1M5"/>
+                <constraint firstItem="9CL-JU-XUM" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="70" id="sIs-uf-GI9"/>
+                <constraint firstItem="9CL-JU-XUM" firstAttribute="height" secondItem="qlt-RM-NJF" secondAttribute="height" id="uIC-Tm-Am2"/>
+                <constraint firstItem="9CL-JU-XUM" firstAttribute="leading" secondItem="gn1-NV-34O" secondAttribute="leading" id="wtT-Qw-BaG"/>
+                <constraint firstItem="q96-iQ-ohZ" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="xfp-kq-Lkp"/>
+                <constraint firstItem="WF1-9r-oiA" firstAttribute="width" secondItem="9CL-JU-XUM" secondAttribute="width" id="xuh-KX-Isv"/>
+            </constraints>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="wallpaper2.jpg" width="1680" height="1050"/>
+    </resources>
+</document>

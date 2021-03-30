@@ -1,0 +1,253 @@
+//
+//  GridController.m
+//  Batalha Naval
+//
+//  Created by Gabriel A. Dragoni on 12/30/15.
+//  Copyright (c) 2015 Gabriel A. Dragoni. All rights reserved.
+//
+
+#import "GridController.h"
+#import "AfundarNaviosController.h"
+#import "GeradorDeNavios.h"
+#import "AfundarNavios.h"
+#import "ImageUtil.h"
+
+@implementation GridController{
+    
+    NSArray        *arrayDeNavios;
+    NSInteger      campoComNavio;
+    AfundarNavios  *regrasJogo;
+}
+
+static NSString * const reuseIdentifier = @"Cell";
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    regrasJogo = [[AfundarNavios alloc]initAfundarNavios];
+    _naviosAfundados = [NSMutableArray new];
+    arrayDeNavios = [[NSArray alloc]initWithArray:[regrasJogo gerarArrayDeNaviosAfundar]];
+    
+    campoComNavio = 0;
+    [self.controllerPai frotaAfundada:0];
+}
+
+-(void)viewWillLayoutSubviews {
+    
+    UICollectionViewFlowLayout *layout;
+    
+    [self setAutomaticallyAdjustsScrollViewInsets:NO];
+    
+    layout = (id) self.collectionView.collectionViewLayout;
+    
+    layout.sectionInset = UIEdgeInsetsZero;
+    
+    float largura = (self.view.frame.size.width-10)/10;
+    float altura =  (self.view.frame.size.height-10)/10;
+    
+    layout.minimumInteritemSpacing = 0.5;
+    layout.minimumLineSpacing      = 1;
+    
+    CGSize c = CGSizeMake(largura, altura);
+    
+    layout.itemSize = c;
+}
+
+#pragma mark - Collection view data source
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return 100;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    cell.backgroundColor   = [UIColor colorWithRed:0 green:0 blue:1 alpha:0.5];
+    cell.tag = indexPath.row+1;
+    
+    return cell;
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+    return UIEdgeInsetsMake(0, 0, 0, 0);
+}
+
+#pragma mark - Collection view delegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    cell.tag = indexPath.row+1;
+    ShipComp *navioNaGrid = [self navioNaGrid:cell.tag];
+    
+    UICollectionViewCell* celula = (UICollectionViewCell*)[self.collectionView viewWithTag:indexPath.row+1];
+    celula.userInteractionEnabled = NO;
+    
+    if (navioNaGrid != nil) {
+        
+        if (![self TesteNavioDestruido:navioNaGrid]) {
+            
+            UICollectionViewCell* celula = (UICollectionViewCell*)[self.collectionView viewWithTag:indexPath.row+1];
+
+            celula.backgroundColor = [UIColor colorWithRed:0.7 green:0.2 blue:0.2 alpha:1];
+            celula.alpha = 0;
+            
+            [UIView animateWithDuration:0.5 animations:^{
+                celula.alpha = 1;
+            }];
+            celula.userInteractionEnabled = NO;
+        }
+        
+        if ([regrasJogo removeNaviosAfundar:cell.tag]) {
+            
+            [self.controllerPai pausaTimer];
+            NSString *msgAlerta;
+            [regrasJogo tocarWinAfundar];
+            msgAlerta = [NSString stringWithFormat:@"Seu tempo foi de: %02li:%02li", self.controllerPai.seconds/60,self.controllerPai.seconds%60];
+            
+            UIAlertView *alerta = [[UIAlertView alloc]initWithTitle:@"Navios afundados!" message:msgAlerta delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+            alerta.tag = 1;
+            [alerta show];
+        }
+    } else {
+        
+        UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:1 alpha:1];
+        }];
+        
+        cell.userInteractionEnabled = NO;
+        [regrasJogo tocarSplashAfundar];
+    }
+}
+
+#pragma mark - Alert view
+
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    if (alertView.tag==1) {
+        
+        [regrasJogo adicionarRecordAoJogador:self.controllerPai.seconds];
+        [[self navigationController] popToRootViewControllerAnimated:YES];
+    }
+}
+
+#pragma mark - Metodos
+
+-(ShipComp *)navioNaGrid:(NSInteger)cell{
+    
+    for (ShipComp *nav in arrayDeNavios) {
+        
+        for (NSNumber *pos in nav.posicoes) {
+            
+            if (cell == [pos integerValue]) {
+                
+                [_naviosAfundados addObject: pos];
+                campoComNavio += 1;
+                [self.controllerPai frotaAfundada:[regrasJogo porcentagemDeFrotaAfundadaAfundar:campoComNavio]];
+                [regrasJogo tocarBombaAfundar];
+                
+                return nav;
+            }
+        }
+    }
+    
+       return nil;
+}
+
+-(BOOL)TesteNavioDestruido:(ShipComp *)nav{
+    
+    for (NSNumber* pos in nav.posicoes) {
+        
+        UICollectionViewCell* celula = (UICollectionViewCell*)[self.collectionView viewWithTag:[pos integerValue]];
+        if (celula.userInteractionEnabled == YES) {
+            
+            return NO;
+        }
+    }
+    
+    for (NSNumber* pos in nav.posicoes) {
+        
+        UICollectionViewCell* celula = (UICollectionViewCell*)[self.collectionView viewWithTag:[pos integerValue]];
+        [regrasJogo tocarShipBellAfundar];
+        
+            UILabel * labelcell = [[UILabel alloc] initWithFrame:CGRectMake(2, 2, 40, 40)];
+            labelcell.alpha = 0;
+            celula.userInteractionEnabled = NO;
+        if (nav.posicoes.count > 1) {
+        
+            if ([nav.posicoes[0] integerValue] == [nav.posicoes[1] integerValue]+1|| [nav.posicoes[0] integerValue] == [nav.posicoes[1] integerValue]-1) {
+                
+                for (NSNumber* posicoes in nav.posicoes) {
+                    
+                    UICollectionViewCell* celula = (UICollectionViewCell*)[self.collectionView viewWithTag:[posicoes integerValue]];
+                    if (posicoes == nav.posicoes[0]) {
+                        
+                        UIImage *imageNavio = [UIImage imageNamed:@"frenteNavio.png"];
+                        imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                        UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                        [celula addSubview:viewComNavio];
+                    }else if(posicoes == nav.posicoes[nav.posicoes.count-1]){
+                        
+                        UIImage *imageNavio = [UIImage imageNamed:@"atrasNavio.png"];
+                        imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                        UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                        [celula addSubview:viewComNavio];
+                    }else{
+                        
+                        UIImage *imageNavio = [UIImage imageNamed:@"meioNavio.png"];
+                        imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                        UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                        [celula addSubview:viewComNavio];
+                    }
+                }
+            }else{
+                
+                for (NSNumber* posicoes in nav.posicoes) {
+                    
+                    UICollectionViewCell* celula = (UICollectionViewCell*)[self.collectionView viewWithTag:[posicoes integerValue]];
+                    if (posicoes == nav.posicoes[0]) {
+                        
+                        UIImage *imageNavio = [UIImage imageNamed:@"frenteNavio.png"];
+                        imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                        UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                        viewComNavio.transform = CGAffineTransformMakeRotation(1.5708);
+                        [celula addSubview:viewComNavio];
+                    }else if(posicoes == nav.posicoes[nav.posicoes.count-1]){
+                        
+                        UIImage *imageNavio = [UIImage imageNamed:@"atrasNavio.png"];
+                        imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                        UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                        viewComNavio.transform = CGAffineTransformMakeRotation(1.5708);
+                        [celula addSubview:viewComNavio];
+                    }else{
+                        
+                        UIImage *imageNavio = [UIImage imageNamed:@"meioNavio.png"];
+                        imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+                        UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+                        viewComNavio.transform = CGAffineTransformMakeRotation(1.5708);
+                        [celula addSubview:viewComNavio];
+                    }
+                }
+            }
+        }
+    if ([nav isSubmarino]) {
+        
+        UICollectionViewCell* celula = (UICollectionViewCell*)[self.collectionView viewWithTag:[nav.posicoes[0] integerValue]];
+        UIImage *imageNavio = [UIImage imageNamed:@"submarino.png"];
+        imageNavio = [ImageUtil imageWithImage:imageNavio convertToSize:celula.frame.size];
+        UIImageView *viewComNavio = [[UIImageView alloc] initWithImage:imageNavio];
+        [celula addSubview:viewComNavio];
+        
+        }
+    }
+         
+    return YES;
+}
+
+@end

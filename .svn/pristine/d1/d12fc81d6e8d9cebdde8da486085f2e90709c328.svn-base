@@ -1,0 +1,17 @@
+//
+//  GridController.h
+//  Batalha Naval
+//
+//  Created by Gabriel A. Dragoni on 12/30/15.
+//  Copyright (c) 2015 Gabriel A. Dragoni. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+@class AfundarNaviosController;
+
+@interface GridController : UICollectionViewController
+
+@property (nonatomic) NSMutableArray            *camposPreenchidos, *naviosAfundados;
+@property (nonatomic) AfundarNaviosController   *controllerPai;
+
+@end
